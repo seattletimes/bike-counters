@@ -3,7 +3,7 @@
     <h3>{{ decipher[row.dir] }}</h3>
     <div class="pair">
       <div v-for="val in row.values">
-        {{ commafy(val) }}
+        <span>{{ commafy(val) }}</span>
         <span class="brick" v-bind:style="{ height: `${ val / maxVal * 100}%` }"></span>
       </div>
     </div>

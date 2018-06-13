@@ -27,7 +27,6 @@ Object.values(window.bikeCounts).forEach((bc) => {
   });
 });
 var maxVal = Math.max(...allTotals);
-console.log(maxVal);
 
 Vue.component('count-grid', {
   data() {
@@ -56,5 +55,11 @@ var app = new Vue({
     bikeCounts: window.bikeCounts,
     drilldown: null,
     decipher,
+  },
+  methods: {
+    toggleDrilldown(counter) {
+      if (this.drilldown === counter) this.drilldown = null;
+      else this.drilldown = counter;
+    }
   },
 });

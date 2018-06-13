@@ -19,6 +19,11 @@ main {
   .display-flex();
   border-bottom: 1px solid @df-light-gray;
 
+  &:not(.header-row):hover, &:not(.header-row):focus     {
+    background-color: @df-off-white;
+    cursor: pointer;
+  }
+
   & > div {
     padding: 10px;
   }
@@ -43,7 +48,11 @@ h3 {
   & > div {
     width: 50%;
     text-align: right;
+    line-height: 1;
     font-family: @df-sans;
+    .display-flex();
+    .justify-content(flex-end);
+    .align-items(flex-end);
   }
 }
 
@@ -51,4 +60,13 @@ h3 {
   display: inline-block;
   width: 10px;
   background-color: @st-dark-orange;
+}
+
+.drilldown {
+  height: 200px;
+  transition: height .5s ease;
+}
+.slide-enter, .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  height: 0;
+  overflow-y: hidden;
 }

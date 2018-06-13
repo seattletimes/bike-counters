@@ -14,14 +14,16 @@
           <h2>Bikes over the span of a week</h2>
         </div>
         <div v-for="counter in counterNames">
-          <div class="row">
+          <div class="row" tabindex="0" v-on:click="toggleDrilldown(counter)" v-on:keyup.enter="toggleDrilldown(counter)">
             <div>{{ counter }} (map TK)</div>
             <count-grid v-bind:totals="bikeCounts[counter].totals"></count-grid>
             <spark-line v-bind:weekly="bikeCounts[counter].weekly"></spark-line>
           </div>
-          <div v-if="drilldown === counter" class="drilldown">
-            Drilldown content TK
-          </div>
+          <transition name="slide">
+            <div v-if="drilldown === counter" class="drilldown">
+              Drilldown content TK
+            </div>
+          </transition>
         </div>
       </main>
 
