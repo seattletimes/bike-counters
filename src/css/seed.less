@@ -1,1 +1,54 @@
 @import "seattletimes";
+
+main {
+  margin: 20px auto;
+  max-width: 960px;
+  border-top: 1px solid @df-border-gray;
+  border-bottom: 1px solid @df-border-gray;
+}
+
+.header-row {
+  h2 {
+    font-size: 20px;
+    text-align: center;
+    font-family: @df-sans;
+  }
+}
+
+.row {
+  .display-flex();
+  border-bottom: 1px solid @df-light-gray;
+
+  & > div {
+    padding: 10px;
+  }
+  & > :nth-child(1), :nth-child(3) {
+    .flex(2 0 0);
+  }
+  & >:nth-child(2) {
+    .flex(1 0 0);
+  }
+}
+
+h3 {
+  margin: 0;
+  font-size: 18px;
+  text-align: center;
+  font-family: @df-sans;
+}
+.pair {
+  padding: 10px 0;
+  .display-flex();
+
+  & > div {
+    width: 50%;
+    text-align: right;
+    font-family: @df-sans;
+  }
+}
+
+.brick {
+  display: inline-block;
+  width: 10px;
+  background-color: @st-dark-orange;
+}

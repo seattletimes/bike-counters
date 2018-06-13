@@ -7,9 +7,29 @@
   <body>
 
     <responsive-child>
-      <!-- content goes here -->
+      <main>
+        <div class="row header-row">
+          <h2>Location</h2>
+          <h2>Bike Count (2016-17 vs 2017-2018)</h2>
+          <h2>Bikes over the span of a week</h2>
+        </div>
+        <div v-for="counter in counterNames">
+          <div class="row">
+            <div>{{ counter }} (map TK)</div>
+            <count-grid v-bind:totals="bikeCounts[counter].totals"></count-grid>
+            <spark-line v-bind:weekly="bikeCounts[counter].weekly"></spark-line>
+          </div>
+          <div v-if="drilldown === counter" class="drilldown">
+            Drilldown content TK
+          </div>
+        </div>
+      </main>
+
     </responsive-child>
 
+    <script>
+      var bikeCounts = <%= JSON.stringify(json.processed) %>;
+    </script>
     <script src="app.js" async></script>
     <% if (json.project.production) { %>
     <%= !json.project.embedded ? t.include("partials/_analytics.html") : "" %>
