@@ -27,8 +27,8 @@ module.exports = function sparkLine({maxDaily}) {
           });
           context.strokeStyle = dirNum ? palette.stDarkBlue : palette.stDarkRed;
           context.beginPath();
-          xs.forEach((x, i) => {
-            var y = ys[i];
+          ys.forEach((y, i) => {
+            var x = Math.round(i * canvas.width / 6);
             if (i === 0) context.moveTo(x, y);
             else context.lineTo(x, y);
           });

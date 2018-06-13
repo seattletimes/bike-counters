@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       },
       bike: {
         files: ["raw/*", "preprocess.js"],
-        tasks: ["bike"]
+        tasks: ["bike", "template"]
       }
     }
   });

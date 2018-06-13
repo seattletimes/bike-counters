@@ -20,14 +20,14 @@ main {
   .display-flex();
 
   &:not(.header-row) {
-    min-height: 200px;
+    min-height: 100px;
     &:hover, &:focus {
       background-color: @df-off-white;
       cursor: pointer;
     }
   }
 
-  & > div {
+  & > div, & > canvas {
     padding: 10px;
   }
   & > :nth-child(1), :nth-child(3) {
@@ -39,7 +39,17 @@ main {
 }
 
 .locator {
-  width: 200px;
+  .display-flex();
+  .justify-content(space-between);
+  .align-items(center);
+
+  span {
+    .flex(1 1 50%);
+  }
+
+  svg {
+    .flex(0 0 60px);
+  }
 }
 
 h3 {
@@ -56,9 +66,11 @@ h3 {
   }
 }
 .pair {
-  padding: 10px 0;
+  padding: 0;
   .display-flex();
-
+  :first-child > & {
+    padding-bottom: 10px;
+  }
   & > div {
     width: 50%;
     text-align: right;
@@ -76,9 +88,19 @@ h3 {
   background-color: @st-dark-orange;
 }
 
+canvas {
+  height: 100px;
+}
+
 .drilldown {
   height: 200px;
   transition: height .5s ease;
+
+  // temp placeholder
+  font-family: @df-sans;
+  .display-flex();
+  .justify-content(center);
+  .align-items(center);
 }
 .slide-enter, .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
   height: 0;

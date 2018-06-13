@@ -15,7 +15,7 @@
         </div>
         <div v-for="counter in counterNames">
           <div class="row" tabindex="0" v-on:click="toggleDrilldown(counter)" v-on:keyup.enter="toggleDrilldown(counter)">
-            <locator v-bind:counter="counter"></locator>
+            <locator v-bind:counter="counter" v-bind:coords="bikeCounts[counter].coords"></locator>
             <count-grid v-bind:totals="bikeCounts[counter].totals"></count-grid>
             <spark-line v-bind:weekly="bikeCounts[counter].weekly"></spark-line>
           </div>
