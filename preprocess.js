@@ -22,7 +22,7 @@ const metadata = [
 // Load in all the raw data into the `raws` object
 const raws = {};
 metadata.forEach((bc) => {
-  raws[bc.name] = require(`./data/raw/${bc.name}.json`);
+  raws[bc.name] = require(`./raw/${bc.name}.json`);
 });
 
 // Set up our `result` object, which we'll ultimately save as a new .json file
