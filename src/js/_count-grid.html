@@ -1,6 +1,6 @@
 <div>
-  <div v-for="row in totals">
-    <h3>{{ decipher[row.dir] }}</h3>
+  <div v-for="row, i in totals">
+    <h3 v-bind:class="[`dir-${i}`]">{{ decipher[row.dir] }}</h3>
     <div class="pair">
       <div v-for="val in row.values">
         <span>{{ commafy(val) }}</span>

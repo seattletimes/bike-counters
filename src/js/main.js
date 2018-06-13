@@ -1,5 +1,6 @@
 var Vue = require("vue/dist/vue.min");
 require("component-responsive-frame/child");
+var { palette }= require("./lib/colors");
 
 // TODO: double check these meanings with the city
 var decipher = {
@@ -81,13 +82,14 @@ Vue.component('spark-line', {
     context.stroke();
 
     // Draw each line
-    this.weekly.forEach((row) => {
+    this.weekly.forEach((row, dirNum) => {
       var ys = row.values.map((numBikes) => {
         var scaled = numBikes / this.maxDaily;
         // Now map from [0,1] space to [canvas.height - 20, 10]
         // i.e. 20 padding at bottom (for letters), 10 padding at top
         return Math.round((canvas.height - 20) * (1 - scaled) + 10 * scaled);
       });
+      context.strokeStyle = dirNum ? palette.stDarkBlue : palette.stDarkRed;
       context.beginPath();
       xs.forEach((x, i) => {
         var y = ys[i];
@@ -96,8 +98,7 @@ Vue.component('spark-line', {
         context.fillRect(x - 2, y - 2, 4, 4);
       });
       context.stroke();
-    })
-
+    });
   },
 })
 
