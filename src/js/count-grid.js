@@ -1,4 +1,4 @@
-module.exports = function countGrid(decipher, maxVal, commafy) {
+module.exports = function countGrid({decipher, maxVal, commafy}) {
   return {
     data() {
       return {

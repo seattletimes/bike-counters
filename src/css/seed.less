@@ -16,12 +16,15 @@ main {
 }
 
 .row {
-  .display-flex();
   border-bottom: 1px solid @df-light-gray;
+  .display-flex();
 
-  &:not(.header-row):hover, &:not(.header-row):focus     {
-    background-color: @df-off-white;
-    cursor: pointer;
+  &:not(.header-row) {
+    min-height: 200px;
+    &:hover, &:focus {
+      background-color: @df-off-white;
+      cursor: pointer;
+    }
   }
 
   & > div {
@@ -33,6 +36,10 @@ main {
   & >:nth-child(2) {
     .flex(1 0 0);
   }
+}
+
+.locator {
+  width: 200px;
 }
 
 h3 {

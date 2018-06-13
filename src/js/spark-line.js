@@ -1,6 +1,7 @@
 var { palette } = require("./lib/colors");
+var debounce = require("./lib/debounce");
 
-module.exports = function sparkLine(maxDaily) {
+module.exports = function sparkLine({maxDaily}) {
   return {
     data() {
       return {

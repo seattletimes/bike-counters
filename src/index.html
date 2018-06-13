@@ -15,12 +15,12 @@
         </div>
         <div v-for="counter in counterNames">
           <div class="row" tabindex="0" v-on:click="toggleDrilldown(counter)" v-on:keyup.enter="toggleDrilldown(counter)">
-            <div>{{ counter }} (map TK)</div>
+            <locator v-bind:counter="counter"></locator>
             <count-grid v-bind:totals="bikeCounts[counter].totals"></count-grid>
             <spark-line v-bind:weekly="bikeCounts[counter].weekly"></spark-line>
           </div>
           <transition name="slide">
-            <div v-if="drilldown === counter" class="drilldown">
+            <div v-show="drilldown === counter" class="drilldown">
               Drilldown content TK
             </div>
           </transition>
@@ -28,6 +28,10 @@
       </main>
 
     </responsive-child>
+
+    <div style="display: none">
+      <%= t.include("./assets/locator-seattle.svg") %>
+    </div>
 
     <script>
       var bikeCounts = <%= JSON.stringify(json.processed) %>;

@@ -1,6 +1,6 @@
 var Vue = require("vue/dist/vue.min");
 require("component-responsive-frame/child");
-var debounce = require("./lib/debounce");
+var locator = require("./locator");
 var countGrid = require("./count-grid");
 var sparkLine = require("./spark-line");
 
@@ -39,8 +39,11 @@ Object.values(window.bikeCounts).forEach((bc) => {
 })
 var maxDaily = Math.max(...allDaily);
 
-Vue.component('count-grid',countGrid(decipher, maxVal, commafy));
-Vue.component('spark-line', sparkLine(maxDaily));
+var helpers = { decipher, commafy, maxVal, maxDaily };
+
+Vue.component('locator', locator(helpers));
+Vue.component('count-grid',countGrid(helpers));
+Vue.component('spark-line', sparkLine(helpers));
 
 var app = new Vue({
   el: 'main',
@@ -50,6 +53,7 @@ var app = new Vue({
     bikeCounts: window.bikeCounts,
     drilldown: null,
     decipher,
+    locatorReady: false,
   },
   methods: {
     toggleDrilldown(counter) {
