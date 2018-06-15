@@ -32,6 +32,10 @@ var commafy = function commafy(num) {
   return num.toLocaleString('en-US');
 };
 
+var percentify = function percentify(num) {
+  return `${num > 0 ? '+' : ''}${Math.round(100 * num)}%`;
+};
+
 // TODO: Calculate this number in preprocess OR scale by counter, not across counters
 var allTotals =[];
 Object.values(window.bikeCounts).forEach((bc) => {
@@ -49,7 +53,7 @@ Object.values(window.bikeCounts).forEach((bc) => {
 })
 var maxDaily = Math.max(...allDaily);
 
-var helpers = { decipher, commafy, maxVal, maxDaily };
+var helpers = { decipher, commafy, maxVal, maxDaily, percentify };
 
 Vue.component('locator', locator(helpers));
 Vue.component('count-grid',countGrid(helpers));

@@ -10,8 +10,15 @@
       <main>
         <div class="row header-row">
           <h2>Location</h2>
-          <h2>Bike Count (2016-17 vs 2017-2018)</h2>
-          <h2>Average bike traffic over the week (Sun. through Sat.)</h2>
+          <h2>
+            Total bike traffic over a year
+            <small class="pair">
+              <div>May 2016 - Apr. 2017</div>
+              <div>May 2017 - Apr. 2018</div>
+              <div>Change</div>
+            </small>
+          </h2>
+          <h2>Avg. bike traffic over the week (Sun. through Sat.)</h2>
         </div>
         <div v-for="counter in counterNames">
           <div class="row" tabindex="0" v-on:click="toggleDrilldown(counter)" v-on:keyup.enter="toggleDrilldown(counter)">
