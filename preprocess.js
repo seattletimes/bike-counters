@@ -56,6 +56,21 @@ const bikesPerDayOfWeek = function bikesPerDayOfWeek(data, field, day) {
   return sumField(filteredData, field) / uniqueDays.size;
 };
 
+const monthRange  = function monthRange(startYear, startMonth, endYear, endMonth) {
+  const result = [];
+  let [currYear, currMonth] = [startYear, startMonth];
+  while (currYear < endYear || (currYear === endYear && currMonth <= endMonth)) {
+    result.push(`${currYear}-${currMonth.toString().padStart(2, '0')}-01`);
+    if (currMonth === 12) {
+      currYear += 1;
+      currMonth = 1;
+    } else {
+      currMonth += 1
+    }
+  }
+  return result;
+};
+
 // ~~ Preprocess data in several ways ~~
 
 // Calculate total bikes in each direction for May 2016-April 2017 and May 2017-April 2018
@@ -77,6 +92,14 @@ metadata.forEach((bc) => {
     dir,
     values: [0,1,2,3,4,5,6].map(day => bikesPerDayOfWeek(data, dir, day)),
   }))
+});
+
+metadata.forEach((bc) => {
+  const months = monthRange(2016, 5, 2018, 4);
+  result[bc.name].monthly = months.map((monthStr, i) => {
+    const data = filterDate(raws[bc.name], monthStr, months[i + 1] || '2018-05-01');
+    return sumField(data, bc.dirs[0]) + sumField(data, bc.dirs[1]);
+  })
 });
 
 // Attach coords
