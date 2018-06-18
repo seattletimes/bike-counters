@@ -1,9 +1,10 @@
-module.exports = function countGrid({decipher, maxVal, commafy, percentify}) {
+var { commafy, decipher, percentify } = require("./util");
+
+module.exports = function countGrid() {
   return {
     data() {
       return {
         decipher,
-        maxVal,
       };
     },
     props: ['totals'],

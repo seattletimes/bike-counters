@@ -101,12 +101,16 @@ canvas {
 
 .drilldown {
   height: 200px;
-  transition: height .5s ease;
-
-  // temp placeholder
+  transition: height 0.5s ease;
   .display-flex();
-  .justify-content(center);
-  .align-items(center);
+
+  .month-graph {
+    .flex(2 0 0);
+  }
+
+  .day-graphs {
+    .flex(1 0 0);
+  }
 }
 .slide-enter, .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
   height: 0;

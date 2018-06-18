@@ -1,18 +1,17 @@
 var { palette } = require("./lib/colors");
-var debounce = require("./lib/debounce");
+var { canvasDraw, canvasSetup } = require("./util");
 
-module.exports = function sparkLine({maxDaily}) {
+module.exports = function sparkLine() {
   return {
+    data() {
+      return { resizeListener: null };
+    },
     props: ['weekly'],
     template: '<canvas></canvas>',
     methods: {
       draw() {
         var canvas = this.$el;
-        var context = canvas.getContext('2d', { });
-        canvas.width = 0;
-        canvas.height = 0;
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
+        var context = canvasSetup(canvas);
         context.lineWidth = 1.5;
 
         // Draw each line
@@ -35,11 +34,6 @@ module.exports = function sparkLine({maxDaily}) {
         });
       },
     },
-    mounted() {
-      this.draw();
-      window.addEventListener('resize', () => {
-        debounce(this.draw)();
-      });
-    },
+    mounted: canvasDraw,
   };
 };

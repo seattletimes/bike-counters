@@ -1,4 +1,6 @@
-module.exports = function locator({ decipher }) {
+var { decipher } = require("./util");
+
+module.exports = function locator() {
   return {
     data() {
       return { decipher };

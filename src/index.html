@@ -31,8 +31,9 @@
             <spark-line v-bind:weekly="bikeCounts[counter].weekly"></spark-line>
           </div>
           <transition name="slide">
-            <div v-show="drilldown === counter" class="drilldown">
-              Drilldown content TK
+            <div v-if="drilldown === counter" class="drilldown">
+              <month-graph v-bind:monthly="bikeCounts[counter].monthly"></month-graph>
+              <day-graphs v-bind:daily="bikeCounts[counter].daily"></day-graph>
             </div>
           </transition>
         </div>
