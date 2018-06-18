@@ -5,13 +5,25 @@ main {
   max-width: 960px;
   border-top: 1px solid @df-border-gray;
   border-bottom: 1px solid @df-border-gray;
+  font-family: @df-sans;
+}
+
+.chatter {
+  h1 {
+    font-size: 20px;
+    text-align: center;
+    line-height: 1.2;
+  }
+  p {
+    text-align: center;
+    font-family: @df-serif;
+  }
 }
 
 .header-row {
   h2 {
     font-size: 18px;
     text-align: center;
-    font-family: @df-sans;
   }
 }
 
@@ -22,7 +34,7 @@ main {
   &:not(.header-row) {
     min-height: 100px;
     &:hover, &:focus {
-      background-color: @df-off-white;
+      background-color: darken(@df-off-white, 5%);
       cursor: pointer;
     }
   }
@@ -54,7 +66,6 @@ h3 {
   margin: 0;
   font-size: 18px;
   text-align: center;
-  font-family: @df-sans;
 
   &.dir-0 {
     color: @st-dark-red;
@@ -75,7 +86,6 @@ h3 {
     .flex(0 1 20%);
     text-align: right;
     line-height: 1;
-    font-family: @df-sans;
   }
 }
 
@@ -94,7 +104,6 @@ canvas {
   transition: height .5s ease;
 
   // temp placeholder
-  font-family: @df-sans;
   .display-flex();
   .justify-content(center);
   .align-items(center);
@@ -102,4 +111,22 @@ canvas {
 .slide-enter, .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
   height: 0;
   overflow-y: hidden;
+}
+
+.source {
+  font-size: 12px;
+  padding: 10px 0;
+  color: #999;
+  clear: both;
+  font-style: italic;
+  text-align: left;
+  .credit {
+    font-style: normal;
+    text-transform: uppercase;
+    display: block;
+    float: right;
+    @media @mobile {
+      float: none;
+    }
+  }
 }
