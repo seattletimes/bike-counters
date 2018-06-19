@@ -40,6 +40,11 @@ const filterDate = function filterDate(data, start, end) {
   return data.filter(r => (r.date >= start && r.date < end));
 };
 
+const filterHour = function filterHour(data, hourStr) {
+  // String is like 2014-01-01T02:00:00.000 --> slice(11,13) is like '02'
+  return data.filter(r => (r.date.slice(11, 13) === hourStr));
+};
+
 const sumField = function sumField(data, fieldName) {
   return data.reduce((sum, curr) => sum + (Number(curr[fieldName]) || 0), 0); // TODO: Consider sad nulls :(
 };
@@ -91,15 +96,33 @@ metadata.forEach((bc) => {
   result[bc.name].weekly = bc.dirs.map(dir => ({
     dir,
     values: [0,1,2,3,4,5,6].map(day => bikesPerDayOfWeek(data, dir, day)),
-  }))
+  }));
 });
 
+// Total bikes for each month from May 2016 - April 2018
 metadata.forEach((bc) => {
   const months = monthRange(2016, 5, 2018, 4);
   result[bc.name].monthly = months.map((monthStr, i) => {
     const data = filterDate(raws[bc.name], monthStr, months[i + 1] || '2018-05-01');
     return sumField(data, bc.dirs[0]) + sumField(data, bc.dirs[1]);
-  })
+  });
+});
+
+// Average bikes per hr for May 2017-April 2018 - separated by weekend/weekday and direction
+metadata.forEach((bc) => {
+  const data = filterDate(raws[bc.name], '2017-05-01', '2018-05-01');
+  const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
+  ['weekday', 'weekend'].forEach((dayType) => {
+    const acceptableDays = (dayType === 'weekday') ? new Set([1,2,3,4,5]) : new Set([0,6]);
+    result[bc.name][dayType] = bc.dirs.map(dir => ({
+      dir,
+      values: hours.map((hourStr) => {
+        const hourData = filterHour(data, hourStr);
+        const dayTypeData = hourData.filter(r => acceptableDays.has(dayOfWeek(r)));
+        return sumField(dayTypeData, dir) / dayTypeData.length;
+      }),
+    }));
+  });
 });
 
 // Attach coords
