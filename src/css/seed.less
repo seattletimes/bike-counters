@@ -100,11 +100,15 @@ canvas {
 }
 
 .drilldown {
-  height: 200px;
+  border: 1px solid @df-border-gray;
+  height: 220px;
+  overflow-y: hidden;
   transition: height 0.5s ease;
   .display-flex();
+  .align-items(center);
 
   .month-graph {
+    height: 200px;
     .flex(2 0 0);
   }
 
@@ -114,7 +118,6 @@ canvas {
 }
 .slide-enter, .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
   height: 0;
-  overflow-y: hidden;
 }
 
 .source {

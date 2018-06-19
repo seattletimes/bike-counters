@@ -21,12 +21,12 @@ module.exports = function sparkLine() {
           var ys = row.values.map((numBikes) => {
             var scaled = (numBikes - minDaily) / (maxDaily - minDaily);
             // Now map from [0,1] space to [canvas.height - 1, 1]
-            return Math.round(1 + (canvas.height - 2) * (1 - scaled));
+            return 1 + (canvas.height - 2) * (1 - scaled);
           });
           context.strokeStyle = dirNum ? palette.stDarkBlue : palette.stDarkRed;
           context.beginPath();
           ys.forEach((y, i) => {
-            var x = Math.round(i * canvas.width / 6);
+            var x = (i * canvas.width / 6);
             if (i === 0) context.moveTo(x, y);
             else context.lineTo(x, y);
           });
