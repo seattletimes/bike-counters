@@ -84,10 +84,7 @@ metadata.forEach((bc) => {
     filterDate(raws[bc.name], '2016-05-01', '2017-05-01'),
     filterDate(raws[bc.name], '2017-05-01', '2018-05-01'),
   ];
-  result[bc.name].totals = bc.dirs.map(dir => ({
-    dir,
-    values: timePeriods.map(timeData => sumField(timeData, dir)),
-  }));
+  result[bc.name].totals = timePeriods.map(timeData => sumField(timeData, bc.dirs[0]) + sumField(timeData, bc.dirs[1]));
 });
 
 // Calculate average per day in each direction for May 2017-April 2018

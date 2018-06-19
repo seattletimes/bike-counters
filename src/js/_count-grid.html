@@ -1,13 +1,8 @@
-<div>
-  <div v-for="row, i in totals">
-    <h3 v-bind:class="[`dir-${i}`]">{{ decipher[row.dir] }}</h3>
-    <div class="pair">
-      <div v-for="val in row.values">
-        {{ commafy(val) }}
-      </div>
-      <div>
-        {{ percentify((row.values[1] - row.values[0]) / row.values [0]) }}
-      </div>
-    </div>
+<div class="pair">
+  <div v-for="val in totals">
+    {{ commafy(val) }}
+  </div>
+  <div>
+    {{ percentify((totals[1] - totals[0]) / totals[0]) }}
   </div>
 </div>

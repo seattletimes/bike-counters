@@ -1,20 +1,8 @@
 {
   "2nd-ave": {
     "totals": [
-      {
-        "dir": "nb",
-        "values": [
-          127412,
-          135165
-        ]
-      },
-      {
-        "dir": "sb",
-        "values": [
-          87525,
-          122888
-        ]
-      }
+      214937,
+      258053
     ],
     "weekly": [
       {
@@ -195,20 +183,8 @@
   },
   "26th-ave": {
     "totals": [
-      {
-        "dir": "north",
-        "values": [
-          28809,
-          11491
-        ]
-      },
-      {
-        "dir": "south",
-        "values": [
-          2608,
-          19809
-        ]
-      }
+      31417,
+      31300
     ],
     "weekly": [
       {
@@ -389,20 +365,8 @@
   },
   "39th-ave": {
     "totals": [
-      {
-        "dir": "north",
-        "values": [
-          33634,
-          30767
-        ]
-      },
-      {
-        "dir": "south",
-        "values": [
-          32440,
-          21595
-        ]
-      }
+      66074,
+      52362
     ],
     "weekly": [
       {
@@ -583,20 +547,8 @@
   },
   "58th-st": {
     "totals": [
-      {
-        "dir": "east",
-        "values": [
-          17148,
-          21200
-        ]
-      },
-      {
-        "dir": "west",
-        "values": [
-          17433,
-          23032
-        ]
-      }
+      34581,
+      44232
     ],
     "weekly": [
       {
@@ -777,20 +729,8 @@
   },
   "broadway": {
     "totals": [
-      {
-        "dir": "nb",
-        "values": [
-          48944,
-          44874
-        ]
-      },
-      {
-        "dir": "sb",
-        "values": [
-          59164,
-          53677
-        ]
-      }
+      108108,
+      98551
     ],
     "weekly": [
       {
@@ -971,20 +911,8 @@
   },
   "burke-gilman": {
     "totals": [
-      {
-        "dir": "bike_north",
-        "values": [
-          117335,
-          186424
-        ]
-      },
-      {
-        "dir": "bike_south",
-        "values": [
-          125264,
-          198628
-        ]
-      }
+      242599,
+      385052
     ],
     "weekly": [
       {
@@ -1165,20 +1093,8 @@
   },
   "elliott-bay": {
     "totals": [
-      {
-        "dir": "bike_north",
-        "values": [
-          195549,
-          214933
-        ]
-      },
-      {
-        "dir": "bike_south",
-        "values": [
-          182507,
-          202213
-        ]
-      }
+      378056,
+      417146
     ],
     "weekly": [
       {
@@ -1359,20 +1275,8 @@
   },
   "fremont-bridge": {
     "totals": [
-      {
-        "dir": "fremont_bridge_nb",
-        "values": [
-          428618,
-          520784
-        ]
-      },
-      {
-        "dir": "fremont_bridge_sb",
-        "values": [
-          497261,
-          560586
-        ]
-      }
+      925879,
+      1081370
     ],
     "weekly": [
       {
@@ -1553,20 +1457,8 @@
   },
   "mts": {
     "totals": [
-      {
-        "dir": "bike_north",
-        "values": [
-          72677,
-          175199
-        ]
-      },
-      {
-        "dir": "bike_south",
-        "values": [
-          25035,
-          45535
-        ]
-      }
+      97712,
+      220734
     ],
     "weekly": [
       {
@@ -1747,20 +1639,8 @@
   },
   "spokane-st": {
     "totals": [
-      {
-        "dir": "east",
-        "values": [
-          140384,
-          144748
-        ]
-      },
-      {
-        "dir": "west",
-        "values": [
-          135554,
-          140495
-        ]
-      }
+      275938,
+      285243
     ],
     "weekly": [
       {
