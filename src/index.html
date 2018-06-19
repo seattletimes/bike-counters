@@ -33,7 +33,7 @@
           <transition name="slide">
             <div v-if="drilldown === counter" class="drilldown">
               <month-graph v-bind:monthly="bikeCounts[counter].monthly"></month-graph>
-              <day-graphs v-bind:daily="bikeCounts[counter].daily"></day-graph>
+              <day-graphs v-bind:weekday="bikeCounts[counter].weekday" v-bind:weekend="bikeCounts[counter].weekend"></day-graphs>
             </div>
           </transition>
         </div>
