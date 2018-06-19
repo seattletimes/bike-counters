@@ -25,6 +25,15 @@ main {
     font-size: 18px;
     text-align: center;
   }
+
+  .pair div {
+    padding: 5px;
+    text-align: center;
+    &:hover, &:focus {
+      cursor: pointer;
+      background-color: darken(@df-off-white, 5%);
+    }
+  }
 }
 
 .row {
@@ -46,6 +55,10 @@ main {
   & > :nth-child(2 ) {
     .flex(2 0 0);
   }
+}
+
+.reorder-list-move {
+  transition: transform 0.5s ease;
 }
 
 .locator {

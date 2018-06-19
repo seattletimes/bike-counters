@@ -17,14 +17,15 @@
           <h2>
             Total bike traffic over a year
             <small class="pair">
-              <div>May 2016 - Apr. 2017</div>
-              <div>May 2017 - Apr. 2018</div>
-              <div>Change</div>
+              <div v-for="header, i in sortHeaders" v-on:click="sortRows(i)" v-on:keyup.enter="sortRows(i)">
+                {{ header }}  <span v-if="sortedBy === i">{{ sortOrder === -1 ? '▾' : '▴' }}
+              </div>
             </small>
           </h2>
           <h2>Avg. bike traffic over the week (Sun. through Sat.)</h2>
         </div>
-        <div v-for="counter in counterNames">
+        <transition-group name="reorder-list" tag="div">
+        <div v-for="counter in counterNames" v-bind:key="counter">
           <div class="row" tabindex="0" v-on:click="toggleDrilldown(counter)" v-on:keyup.enter="toggleDrilldown(counter)">
             <locator v-bind:counter="counter" v-bind:coords="bikeCounts[counter].coords"></locator>
             <count-grid v-bind:totals="bikeCounts[counter].totals"></count-grid>
@@ -37,6 +38,7 @@
             </div>
           </transition>
         </div>
+        </transition-group>
         <footer class="source">
           Source: city of Seattle<span class="credit">Alec Glassford / THE SEATTLE TIMES</span>
         </footer>
