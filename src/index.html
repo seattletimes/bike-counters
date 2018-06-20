@@ -12,7 +12,7 @@
           <h1>Bike counter data (hed TK)</h1>
           <p>Click on the rows below to see detailed bike counter data. (chatter TK)</p>
         </section>
-        <div class="row header-row">
+        <div class="row header-row" v-cloak>
           <h2>Location</h2>
           <h2>
             Total bike traffic over a year
@@ -25,7 +25,7 @@
           <h2>Avg. bike traffic over the week (Sun. through Sat.)</h2>
         </div>
         <transition-group name="reorder-list" tag="div">
-        <div v-for="counter in counterNames" v-bind:key="counter">
+        <div v-for="counter in counterNames" v-bind:key="counter" v-cloak>
           <div class="row" tabindex="0" v-on:click="toggleDrilldown(counter)" v-on:keyup.enter="toggleDrilldown(counter)">
             <locator v-bind:counter="counter" v-bind:coords="bikeCounts[counter].coords"></locator>
             <count-grid v-bind:totals="bikeCounts[counter].totals"></count-grid>

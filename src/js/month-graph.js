@@ -1,61 +1,82 @@
 var { palette } = require("./lib/colors");
 var { canvasDraw, canvasSetup } = require("./util");
 
+var padding = {
+  top: 1,
+  bottom: 5,
+};
+
 module.exports = function monthGraph() {
   return {
     data() {
-      return { resizeListener: null };
+      return {
+        ticks: {
+          2: 'July 2016',
+          8: 'Jan. 2017',
+          14: 'July 2017',
+          20: 'Jan. 2018',
+        },
+        canvasWidth: 0,
+        resizeListener: null,
+      };
     },
     props: ['monthly'],
-    template: '<canvas class="month-graph"></canvas>',
+    computed: {
+      maxVal() {
+        return Math.max(... this.monthly);
+      },
+      xs() {
+        return this.monthly.map((_, i) =>
+          this.canvasWidth * i / (this.monthly.length - 1));
+      },
+    },
+    template: require('./_month-graph.html'),
     methods: {
       draw() {
-        var canvas = this.$el;
+        var canvas = this.$el.querySelector('canvas');
         var context = canvasSetup(canvas);
+        this.canvasWidth = canvas.width;
 
-        // Baseline
+        var baselineY = canvas.height - padding.bottom;
+        var ys = this.monthly.map((numBikes) => {
+          // Map from [0, maxVal] to [0, 1]
+          var scaled = numBikes / this.maxVal;
+          // Map from [0, 1] to [baselineY, padding.top]
+          return (1 - scaled) * (baselineY) + scaled * padding.top;
+        });
+
+        // Draw baseline
         context.lineWidth = 1;
         context.strokeStyle = palette.dfMiddleGray;
         context.beginPath();
-        context.moveTo(0, canvas.height - 20);
-        context.lineTo(canvas.width, canvas.height - 20);
+        context.moveTo(0, baselineY);
+        context.lineTo(canvas.width, baselineY);
         context.stroke();
 
-        var maxVal = Math.max(... this.monthly);
-        var ys = this.monthly.map((numBikes) => {
-          var scaled = numBikes / maxVal;
-          // Map from [0, 1] to [canvas.height - 20, 1]
-          return (1 - scaled) * (canvas.height - 20) + scaled;
-        });
-        context.font = '15px sans-serif';
-        context.textAlign = 'center';
         context.lineWidth = 2;
-        context.strokeStyle = 'black';
-        context.beginPath();
-        ys.forEach((y, i) => {
-          var x = i * canvas.width / (ys.length - 1);
-          if (i === 0) context.moveTo(x, y);
-          else context.lineTo(x, y);
-
-          // Label a couple of months
-          if (i === 2 || i === 8 || i === 14 || i === 20) {
-            var labels = { 2: 'July 2016', 8: 'Jan. 2017', 14: 'July 2017', 20: 'Jan. 2018' };
-            var label = labels[i];
-            context.fillStyle = palette.dfMiddleGray;
-            context.fillRect(x - 1, canvas.height - 24, 2, 8);
-            context.fillStyle = 'black';
-            context.fillText(label, x, canvas.height - 3);
-          }
-        });
-        context.stroke();
-
+        
         // Mark when bikeshare started
         context.setLineDash([5,5]);
         context.strokeStyle = palette.stLightRed;
         context.beginPath();
-        var x = 14 * canvas.width / (ys.length - 1);
-        context.moveTo(x, 0);
-        context.lineTo(x, canvas.height - 20);
+        var x = this.xs[14];
+        context.moveTo(x, padding.top);
+        context.lineTo(x, baselineY);
+        context.stroke();
+
+        // Draw line graph + ticks
+        context.setLineDash([]);
+        context.strokeStyle = 'black';
+        context.fillStyle = palette.dfMiddleGray;
+        context.beginPath();
+        ys.forEach((y, i) => {
+          var x = this.xs[i];
+          if (i === 0) context.moveTo(x, y);
+          else context.lineTo(x, y);
+
+          // Ticks for certain months
+          if (this.ticks[i]) context.fillRect(x - 1, baselineY - 4, 2, 8);
+        });
         context.stroke();
       },
     },
