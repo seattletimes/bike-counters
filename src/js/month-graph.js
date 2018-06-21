@@ -39,6 +39,8 @@ module.exports = function monthGraph() {
 
         var baselineY = canvas.height - padding.bottom;
         var ys = this.monthly.map((numBikes) => {
+          if (numBikes === null) return null; // months to skip (no data)
+
           // Map from [0, maxVal] to [0, 1]
           var scaled = numBikes / this.maxVal;
           // Map from [0, 1] to [baselineY, padding.top]
@@ -69,10 +71,19 @@ module.exports = function monthGraph() {
         context.strokeStyle = 'black';
         context.fillStyle = palette.dfMiddleGray;
         context.beginPath();
+        var skipTo = true; // Use moveTo for first month, and whenever we skip
         ys.forEach((y, i) => {
           var x = this.xs[i];
-          if (i === 0) context.moveTo(x, y);
-          else context.lineTo(x, y);
+
+          // Skip, or move to, or line to
+          if (y === null) {
+            skipTo = true;
+          } else if (skipTo) {
+            context.moveTo(x, y);
+            skipTo = false;
+          } else {
+            context.lineTo(x, y);
+          }
 
           // Ticks for certain months
           if (this.ticks[i]) context.fillRect(x - 1, baselineY - 4, 2, 8);

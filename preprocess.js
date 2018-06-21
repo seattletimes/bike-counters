@@ -97,8 +97,12 @@ metadata.forEach((bc) => {
 metadata.forEach((bc) => {
   const months = monthRange(2016, 5, 2018, 4);
   result[bc.name].monthly = months.map((monthStr, i) => {
-    const data = filterDate(raws[bc.name], monthStr, months[i + 1] || '2018-05-01');
-    return sumField(data, bc.dirs[0]) + sumField(data, bc.dirs[1]);
+    const data = filterDate(raws[bc.name], monthStr, months[i + 1] || '2018-05-01') // Filter to dates from the desired month
+      .filter(r => r[bc.dirs[0]] > 0 || r[bc.dirs[1]] > 0); // Remove hours with no counters
+    const dates = data.map(r => r.date.slice(0,10));
+    const uniqueDays = new Set(dates);
+    return (sumField(data, bc.dirs[0]) + sumField(data, bc.dirs[1])) / uniqueDays.size;
+    // If we have an empty month, this returns (0 + 0) / 0 = NaN, which gets stringified to null, lol
   });
 });
 
