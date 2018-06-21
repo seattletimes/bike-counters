@@ -54,11 +54,11 @@ const dayOfWeek = function dayOfWeek(row) {
   return (new Date(row.date)).getDay();
 };
 
-const bikesPerDayOfWeek = function bikesPerDayOfWeek(data, field, day) {
+const bikesPerDayOfWeek = function bikesPerDayOfWeek(data, fields, day) {
   const filteredData = data.filter(r => dayOfWeek(r) === day);
   const dates = filteredData.map(r => r.date.slice(0,10));
   const uniqueDays = new Set(dates);
-  return sumField(filteredData, field) / uniqueDays.size;
+  return (sumField(filteredData, fields[0]) + sumField(filteredData, fields[1])) / uniqueDays.size;
 };
 
 const monthRange  = function monthRange(startYear, startMonth, endYear, endMonth) {
@@ -90,10 +90,7 @@ metadata.forEach((bc) => {
 // Calculate average per day in each direction for May 2017-April 2018
 metadata.forEach((bc) => {
   const data = filterDate(raws[bc.name], '2017-05-01', '2018-05-01');
-  result[bc.name].weekly = bc.dirs.map(dir => ({
-    dir,
-    values: [0,1,2,3,4,5,6].map(day => bikesPerDayOfWeek(data, dir, day)),
-  }));
+  result[bc.name].weekly = [0,1,2,3,4,5,6].map(day => bikesPerDayOfWeek(data, bc.dirs, day));
 });
 
 // Total bikes for each month from May 2016 - April 2018
