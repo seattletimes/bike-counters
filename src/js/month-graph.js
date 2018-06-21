@@ -20,14 +20,14 @@ module.exports = function monthGraph() {
         resizeListener: null,
       };
     },
-    props: ['monthly'],
+    props: ['datasets'],
     computed: {
       maxVal() {
-        return Math.max(... this.monthly);
+        return Math.max(... this.datasets.monthly);
       },
       xs() {
-        return this.monthly.map((_, i) =>
-          this.canvasWidth * i / (this.monthly.length - 1));
+        return this.datasets.monthly.map((_, i) =>
+          this.canvasWidth * i / (this.datasets.monthly.length - 1));
       },
     },
     template: require('./_month-graph.html'),
@@ -38,7 +38,10 @@ module.exports = function monthGraph() {
         this.canvasWidth = canvas.width;
 
         var baselineY = canvas.height - padding.bottom;
-        var ys = this.monthly.map((numBikes) => {
+        ['monthly', 'monthly_weekday', 'monthly_weekend'].forEach((data) => {
+        var ys = this.datasets[data].map((numBikes) => {
+          if (numBikes === null) return null; // months to skip (no data)
+
           // Map from [0, maxVal] to [0, 1]
           var scaled = numBikes / this.maxVal;
           // Map from [0, 1] to [baselineY, padding.top]
@@ -54,7 +57,7 @@ module.exports = function monthGraph() {
         context.stroke();
 
         context.lineWidth = 2;
-        
+
         // Mark when bikeshare started
         context.setLineDash([5,5]);
         context.strokeStyle = palette.stLightRed;
@@ -66,18 +69,33 @@ module.exports = function monthGraph() {
 
         // Draw line graph + ticks
         context.setLineDash([]);
-        context.strokeStyle = 'black';
+        const strokeColors = {
+          monthly: 'black',
+          monthly_weekday: 'green',
+          monthly_weekend: 'purple',
+        }
+        context.strokeStyle = strokeColors[data];
         context.fillStyle = palette.dfMiddleGray;
         context.beginPath();
+        var skipTo = true; // Use moveTo for first month, and whenever we skip
         ys.forEach((y, i) => {
           var x = this.xs[i];
-          if (i === 0) context.moveTo(x, y);
-          else context.lineTo(x, y);
+
+          // Skip, or move to, or line to
+          if (y === null) {
+            skipTo = true;
+          } else if (skipTo) {
+            context.moveTo(x, y);
+            skipTo = false;
+          } else {
+            context.lineTo(x, y);
+          }
 
           // Ticks for certain months
           if (this.ticks[i]) context.fillRect(x - 1, baselineY - 4, 2, 8);
         });
         context.stroke();
+      });
       },
     },
     mounted: canvasDraw,
