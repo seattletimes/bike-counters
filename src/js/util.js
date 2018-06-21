@@ -2,7 +2,7 @@ var debounce = require("./lib/debounce");
 
 module.exports = {
   commafy(num) {
-    return num.toLocaleString('en-US');
+    return num.toLocaleString('en-US', { maximumFractionDigits: 0 });
   },
   percentify(num) {
     return `${num > 0 ? '+' : ''}${Math.round(100 * num)}%`;

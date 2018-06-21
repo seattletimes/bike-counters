@@ -1,5 +1,5 @@
 var { palette } = require("./lib/colors");
-var { canvasDraw, canvasSetup, decipher } = require("./util");
+var { canvasDraw, canvasSetup, commafy, decipher } = require("./util");
 
 var padding= {
   top: 1,
@@ -29,7 +29,7 @@ var drawDay = function drawDay(dayType) {
   context.stroke();
 
   // max of both directions
-  var maxVal = Math.max(... data[0].values.concat(data[1].values));
+  var maxVal = this.maxVals[dayType];
 
   // Draw actual lines
   context.lineWidth = 2;
@@ -71,6 +71,12 @@ module.exports = function dayGraphs() {
     },
     props: ['weekday', 'weekend'],
     computed: {
+      maxVals() {
+        return {
+          weekday: Math.max(... this.weekday[0].values.concat(this.weekday[1].values)),
+          weekend: Math.max(... this.weekend[0].values.concat(this.weekend[1].values)),
+        };
+      },
       xs() {
         return this.weekday[0].values.map((_, i) =>
           this.canvasWidth * i / (this.weekday[0].values.length - 1));
@@ -82,6 +88,7 @@ module.exports = function dayGraphs() {
         drawDay.call(this, 'weekday');
         drawDay.call(this, 'weekend');
       },
+      commafy,
     },
     mounted: canvasDraw,
     destroyed() {

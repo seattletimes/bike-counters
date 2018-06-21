@@ -1,5 +1,5 @@
 var { palette } = require("./lib/colors");
-var { canvasDraw, canvasSetup } = require("./util");
+var { canvasDraw, canvasSetup, commafy } = require("./util");
 
 var padding = {
   top: 1,
@@ -56,7 +56,7 @@ module.exports = function monthGraph() {
         context.stroke();
 
         context.lineWidth = 2;
-        
+
         // Mark when bikeshare started
         context.setLineDash([5,5]);
         context.strokeStyle = palette.stLightRed;
@@ -90,6 +90,7 @@ module.exports = function monthGraph() {
         });
         context.stroke();
       },
+      commafy,
     },
     mounted: canvasDraw,
     destroyed() {

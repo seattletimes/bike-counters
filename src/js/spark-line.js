@@ -4,14 +4,27 @@ var { canvasDraw, canvasSetup } = require("./util");
 module.exports = function sparkLine() {
   return {
     data() {
-      return { resizeListener: null };
+      return {
+        canvasWidth: 0,
+        ticks: {
+          0: 'Sun.',
+          6: 'Sat.',
+        },
+        resizeListener: null
+      };
     },
     props: ['weekly'],
-    template: '<canvas></canvas>',
+    computed: {
+      xs() {
+        return this.weekly.map((_, i) => i * this.canvasWidth / (this.weekly.length -1));
+      },
+    },
+    template: require('./_spark-line.html'),
     methods: {
       draw() {
-        var canvas = this.$el;
+        var canvas = this.$el.querySelector('canvas');
         var context = canvasSetup(canvas);
+        this.canvasWidth = canvas.width;
         context.lineWidth = 1.5;
 
         // Draw the line
