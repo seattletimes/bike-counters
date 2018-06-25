@@ -18,7 +18,7 @@ var app = new Vue({
   data: {
     counterNames: [ '2nd-ave', '26th-ave', '39th-ave', '58th-st', 'broadway',
       'burke-gilman', 'elliott-bay', 'fremont-bridge', 'mts', 'spokane-st'],
-    sortedBy: null,
+    sortedBy: null,  // 0, 1, or 2
     sortOrder: null, // -1 for descending, 1 for ascending
     bikeCounts: window.bikeCounts,
     drilldown: null,
@@ -51,6 +51,6 @@ var app = new Vue({
     }
   },
   created() {
-    this.sortRows(0);
+    this.sortRows(1);
   }
 });

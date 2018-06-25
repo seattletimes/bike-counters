@@ -17,8 +17,9 @@
           <h2>
             Total bike traffic over a year
             <small class="pair">
-              <div v-for="header, i in sortHeaders" v-on:click="sortRows(i)" v-on:keyup.enter="sortRows(i)">
-                {{ header }}  <span v-if="sortedBy === i">{{ sortOrder === -1 ? '▾' : '▴' }}
+              <div v-for="header, i in sortHeaders" v-on:click="sortRows(i)" v-on:keyup.enter="sortRows(i)"
+                v-bind:class="{ desc: sortedBy === i && sortOrder === -1, asc: sortedBy === i && sortOrder === 1 }">
+                {{ header }}
               </div>
             </small>
           </h2>

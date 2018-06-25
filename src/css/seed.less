@@ -24,14 +24,20 @@ main {
   }
 }
 
-.header-row {
+.row.header-row {
+
   h2 {
+    padding: 0;
     font-size: 18px;
     text-align: center;
+
+    @media @mobile {
+      display: none;
+    }
   }
 
   .pair div {
-    padding: 5px;
+    // padding: 5px;
     text-align: center;
     &:hover, &:focus {
       cursor: pointer;
@@ -52,12 +58,16 @@ main {
     }
   }
 
+  @media @mobile {
+    display: block;
+  }
+
   & > * {
-    .flex(1 1 0);
+    .flex(1 1 25%);
     padding: 10px;
   }
   & > :nth-child(2) {
-    .flex(2 0 0);
+    .flex(2 2 50%);
   }
 }
 
@@ -79,6 +89,19 @@ main {
   }
 }
 
+.sparkline {
+  @media @mobile {
+    padding: 20px;
+
+    &::before {
+      display: block;
+      text-align: center;
+      font-weight: bold;
+      content: "Average daily bike traffic";
+    }
+  }
+}
+
 h3 {
   margin: 0;
   font-size: 17px;
@@ -97,17 +120,37 @@ h4 {
   .justify-content(space-around);
   .align-items(center);
 
+  @media @mobile {
+    display: block;
+    padding: 10px;
+    &::before {
+      display: block;
+      font-weight: bold;
+      text-align: center;
+      content: "Total bike traffic over a year"
+    }
+  }
+
   & > div {
     .flex(0 1 20%);
     text-align: right;
     line-height: 1;
-  }
-}
 
-.brick {
-  display: inline-block;
-  width: 10px;
-  background-color: @st-dark-orange;
+    @media @mobile {
+      &::before {
+        float: left;
+      }
+      &:nth-child(1)::before {
+        content: "May 2016 - Apr. 2017: ";
+      }
+      &:nth-child(2)::before {
+        content: "May 2017 - Apr. 2018: ";
+      }
+      &:nth-child(3)::before {
+        content: "Change:";
+      }
+    }
+  }
 }
 
 canvas {
@@ -133,12 +176,21 @@ canvas {
   transition: height 0.5s ease;
   .display-flex();
 
+  @media @mobile {
+    display: block;
+    height: 720px;
+  }
+
   & > div {
     margin: 10px;
   }
 
   .month-graph {
     .flex(1 0 0);
+    @media @mobile {
+      margin-bottom: 30px;
+    }
+
     canvas {
       height: 270px;
     }
@@ -198,4 +250,11 @@ canvas {
       float: none;
     }
   }
+}
+
+.desc::after {
+  content: "▾";
+}
+.asc::after {
+  content: "▴";
 }
