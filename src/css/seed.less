@@ -25,15 +25,15 @@ main {
 }
 
 .row.header-row {
+  @media @mobile {
+    display: none;
+  }
 
   h2 {
     padding: 0;
     font-size: 18px;
     text-align: center;
 
-    @media @mobile {
-      display: none;
-    }
   }
 
   .pair div {
@@ -51,7 +51,6 @@ main {
   .display-flex();
 
   &:not(.header-row) {
-    min-height: 100px;
     &:hover, &:focus {
       background-color: darken(@df-off-white, 5%);
       cursor: pointer;
@@ -60,11 +59,15 @@ main {
 
   @media @mobile {
     display: block;
+    margin: 20px 10px 0;
+    box-shadow: 0 8px 16px 0 fade(black, 10%);
+    border: 1px solid @df-light-gray;
+    border-radius: 3px;
   }
 
   & > * {
     .flex(1 1 25%);
-    padding: 10px;
+    padding: 20px;
   }
   & > :nth-child(2) {
     .flex(2 2 50%);
@@ -170,7 +173,11 @@ canvas {
 }
 
 .drilldown {
-  border: 1px solid @df-border-gray;
+  border: 1px solid @df-light-gray;
+  border-top: 1px solid white;
+  border-radius: 3px;
+  box-shadow: 0 8px 16px 0 fade(black, 10%);
+  margin: -1px 10px 20px;
   height: 360px;
   overflow-y: hidden;
   transition: height 0.5s ease;
@@ -178,7 +185,9 @@ canvas {
 
   @media @mobile {
     display: block;
-    height: 720px;
+    margin: 0 20px 20px;
+    border-top: none;
+    height: 600px;
   }
 
   & > div {
@@ -193,6 +202,9 @@ canvas {
 
     canvas {
       height: 270px;
+      @media @mobile {
+        height: 150px;
+      }
     }
   }
 
@@ -215,6 +227,7 @@ canvas {
   padding: 0;
   list-style: none;
   font-size: 16px;
+  line-height: 1.5;
   .display-flex();
   .justify-content(space-around);
   .flex-wrap(wrap);
