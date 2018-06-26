@@ -110,6 +110,7 @@ metadata.forEach((bc) => {
 metadata.forEach((bc) => {
   const data = filterDate(raws[bc.name], '2017-05-01', '2018-05-01');
   const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
+  hours.push('00'); // 12am at start and end
   ['weekday', 'weekend'].forEach((dayType) => {
     const acceptableDays = (dayType === 'weekday') ? new Set([1,2,3,4,5]) : new Set([0,6]);
     result[bc.name][dayType] = bc.dirs.map(dir => ({

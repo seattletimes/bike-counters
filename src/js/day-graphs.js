@@ -18,7 +18,7 @@ var drawDay = function drawDay(dayType) {
   //Shade left and right
   context.fillStyle = '#eee';
   context.fillRect(0, 0, this.xs[9], baselineY);
-  context.fillRect(this.xs[17], 0, this.xs[23] - this.xs[17], baselineY);
+  context.fillRect(this.xs[17], 0, this.xs[24] - this.xs[17], baselineY);
 
   // Draw baseline
   context.lineWidth = 1;
