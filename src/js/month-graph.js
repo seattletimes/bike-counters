@@ -20,7 +20,7 @@ module.exports = function monthGraph() {
         resizeListener: null,
       };
     },
-    props: ['monthly', 'slug'],
+    props: ['monthly', 'slug', 'uncorrected'],
     computed: {
       maxValIndex() {
         var result = 0;
@@ -117,6 +117,21 @@ module.exports = function monthGraph() {
           }
         });
         context.stroke();
+
+        // Draw uncorrected
+        context.setLineDash([1,5]);
+        context.strokeStyle = 'black';
+        context.beginPath();
+        this.uncorrected.forEach((n, i) => {
+          var x = this.xs[i];
+          var scaled = n / maxVal;
+          var y = (1 - scaled) * baselineY + scaled * padding.top;
+          if (i === 0) context.moveTo(x, y);
+          else context.lineTo(x, y);
+        });
+        context.stroke();
+        context.setLineDash([]);
+
 
         // Draw baseline
         context.lineWidth = 1;
