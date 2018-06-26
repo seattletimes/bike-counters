@@ -1,8 +1,10 @@
 <div class="month-graph">
   <h3>Average daily bike traffic, May 2016 - Apr. 2018</h3>
-  <h4>(max: {{ commafy(this.maxVal) }} bikes per day)</h4>
+  <div class="annotation">
+    <span v-bind:style="{ left: annotation.textX.toString() + 'px', top: annotation.textY.toString() + 'px' }">{{ commafy(monthly[maxValIndex])}}</span>
+  </div>
   <canvas></canvas>
   <div class="x-axis">
-    <span v-for="(label, i) in ticks" v-bind:style="{ left: xs[i].toString() + 'px'}">{{ label }}</span>
+    <span v-for="(label, i) in ticks" v-bind:style="{ left: xs[i].toString() + 'px'} ">{{ label }}</span>
   <div>
 </div>

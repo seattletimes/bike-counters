@@ -22,8 +22,12 @@ module.exports = function monthGraph() {
     },
     props: ['monthly'],
     computed: {
-      maxVal() {
-        return Math.max(... this.monthly);
+      maxValIndex() {
+        var result = 0;
+        this.monthly.forEach((m, i) => {
+          if (m > this.monthly[result]) result = i;
+        });
+        return result;
       },
       xWidth() {
         return this.canvasWidth / (this.monthly.length - 1);
@@ -31,6 +35,17 @@ module.exports = function monthGraph() {
       xs() {
         return this.monthly.map((_, i) => i * this.xWidth);
       },
+      annotation() {
+        var goRight = this.maxValIndex < 8 ? 1 : -1;
+        return {
+          startX: this.xs[this.maxValIndex] + goRight * 10,
+          startY: 5,
+          endX: this.xs[this.maxValIndex] + goRight * 80,
+          endY: 10,
+          textX: this.xs[this.maxValIndex] + goRight * 85 + (goRight === 1 ? 0 : -30),
+          textY: 8,
+        };
+      }
     },
     template: require('./_month-graph.html'),
     methods: {
@@ -40,11 +55,12 @@ module.exports = function monthGraph() {
         this.canvasWidth = canvas.width;
 
         var baselineY = canvas.height - padding.bottom;
+        var maxVal = this.monthly[this.maxValIndex];
         var ys = this.monthly.map((numBikes) => {
           if (numBikes === null) return null; // months to skip (no data)
 
           // Map from [0, maxVal] to [0, 1]
-          var scaled = numBikes / this.maxVal;
+          var scaled = numBikes / maxVal;
           // Map from [0, 1] to [baselineY, padding.top]
           return (1 - scaled) * (baselineY) + scaled * padding.top;
         });
@@ -92,13 +108,19 @@ module.exports = function monthGraph() {
           }
         });
         context.stroke();
-        
+
         // Draw baseline
         context.lineWidth = 1;
         context.strokeStyle = palette.dfMiddleGray;
         context.beginPath();
         context.moveTo(0, baselineY);
         context.lineTo(canvas.width, baselineY);
+        context.stroke();
+
+        // Draw annotation line
+        context.beginPath();
+        context.moveTo(this.annotation.startX, this.annotation.startY);
+        context.lineTo(this.annotation.endX, this.annotation.endY);
         context.stroke();
       },
       commafy,

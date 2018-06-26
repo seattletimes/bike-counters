@@ -162,6 +162,20 @@ canvas {
   width: 100%;
 }
 
+.annotation {
+  position: relative;
+  span {
+    position: absolute;
+    font-size: 14px;
+    &::after {
+      content: " bikes per day";
+      @media @mobile {
+        display: none;
+      }
+    }
+  }
+}
+
 .x-axis {
   position: relative;
   span {
@@ -169,6 +183,7 @@ canvas {
     transform: translatex(-50%);
     font-size: 14px;
     white-space: nowrap;
+    transition: left .1s ease;
   }
 }
 
@@ -270,8 +285,4 @@ canvas {
 }
 .asc::after {
   content: "▴";
-}
-
-.x-axis span {
-  transition: left .1s ease;
 }
