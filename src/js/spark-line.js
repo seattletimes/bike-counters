@@ -15,8 +15,11 @@ module.exports = function sparkLine() {
     },
     props: ['weekly'],
     computed: {
+      xWidth() {
+        return this.canvasWidth / (this.weekly.length - 1);
+      },
       xs() {
-        return this.weekly.map((_, i) => i * this.canvasWidth / (this.weekly.length -1));
+        return this.weekly.map((_, i) => i * this.xWidth);
       },
     },
     template: require('./_spark-line.html'),
@@ -31,6 +34,7 @@ module.exports = function sparkLine() {
         var maxDaily = Math.max(... this.weekly);
         var minDaily = Math.min(... this.weekly);
         context.strokeStyle = 'black';
+        context.fillStyle = '#eee';
         var ys = this.weekly.map((numBikes) => {
           var scaled = (numBikes - minDaily) / (maxDaily - minDaily);
           // Now map from [0,1] space to [canvas.height - 1, 1]
@@ -38,9 +42,12 @@ module.exports = function sparkLine() {
         });
         context.beginPath();
         ys.forEach((y, i) => {
-          var x = (i * canvas.width / 6);
+          var x = this.xs[i];
           if (i === 0) context.moveTo(x, y);
           else context.lineTo(x, y);
+
+          // Striping
+          if (i % 2 === 1) context.fillRect(x - this.xWidth / 2, 0, this.xWidth, canvas.height - 1);
         });
         context.stroke();
       },
