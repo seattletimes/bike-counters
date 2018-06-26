@@ -28,8 +28,14 @@ var drawDay = function drawDay(dayType) {
   context.lineTo(canvas.width, baselineY);
   context.stroke();
 
+  // Draw annotation line
+  context.beginPath();
+  context.moveTo(this.annotations[dayType].startX, this.annotations[dayType].startY);
+  context.lineTo(this.annotations[dayType].endX, this.annotations[dayType].endY);
+  context.stroke();
+
   // max of both directions
-  var maxVal = this.maxVals[dayType];
+  var maxVal = this.maxValsAndIndexes[dayType][0];
 
   // Draw actual lines
   context.lineWidth = 2;
@@ -71,11 +77,34 @@ module.exports = function dayGraphs() {
     },
     props: ['weekday', 'weekend'],
     computed: {
-      maxVals() {
-        return {
-          weekday: Math.max(... this.weekday[0].values.concat(this.weekday[1].values)),
-          weekend: Math.max(... this.weekend[0].values.concat(this.weekend[1].values)),
-        };
+      maxValsAndIndexes() {
+        var result = {};
+        ['weekday', 'weekend'].forEach((dayType) => {
+          var valAndIndex = [this[dayType][0].values[0], 0];
+          [0, 1].forEach((dir) => {
+            this[dayType][dir].values.forEach((n, i) => {
+              if (n > valAndIndex[0]) valAndIndex = [n, i];
+            });
+          });
+          result[dayType] = valAndIndex;
+        });
+        return result;
+      },
+      annotations() {
+        var result = {};
+        ['weekday', 'weekend'].forEach((dayType) => {
+          var maxValIndex = this.maxValsAndIndexes[dayType][1];
+          var goRight = (maxValIndex > 12) ? 1 : -1;
+          result[dayType] = {
+            startX: this.xs[maxValIndex] + 5 * goRight,
+            startY: 2,
+            endX: (goRight === 1) ? this.xs[20] : this.xs[4],
+            endY: 8,
+            textX: (goRight === 1) ? this.xs[20] : this.xs[4],
+            textY: 10,
+          }
+        });
+        return result;
       },
       xs() {
         return this.weekday[0].values.map((_, i) =>

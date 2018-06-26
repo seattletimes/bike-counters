@@ -20,7 +20,7 @@ module.exports = function monthGraph() {
         resizeListener: null,
       };
     },
-    props: ['monthly'],
+    props: ['monthly', 'slug'],
     computed: {
       maxValIndex() {
         var result = 0;
@@ -36,14 +36,23 @@ module.exports = function monthGraph() {
         return this.monthly.map((_, i) => i * this.xWidth);
       },
       annotation() {
-        var goRight = this.maxValIndex < 8 ? 1 : -1;
+        if (this.slug === 'broadway' || this.slug === '39th-ave') {
+          return {
+            startX: this.xs[this.maxValIndex],
+            startY: 10,
+            endX: this.xs[this.maxValIndex],
+            endY: 50,
+            textX: this.xs[this.maxValIndex],
+            textY: 60,
+          };
+        }
         return {
-          startX: this.xs[this.maxValIndex] + goRight * 10,
+          startX: this.xs[this.maxValIndex] + 5,
           startY: 5,
-          endX: this.xs[this.maxValIndex] + goRight * 80,
+          endX: this.xs[this.maxValIndex] + 40,
           endY: 10,
-          textX: this.xs[this.maxValIndex] + goRight * 85 + (goRight === 1 ? 0 : -30),
-          textY: 8,
+          textX: this.xs[this.maxValIndex] + 45,
+          textY: 10,
         };
       }
     },

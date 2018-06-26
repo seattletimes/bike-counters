@@ -164,15 +164,12 @@ canvas {
 
 .annotation {
   position: relative;
-  span {
+  .count {
     position: absolute;
     font-size: 14px;
-    &::after {
-      content: " bikes per day";
-      @media @mobile {
-        display: none;
-      }
-    }
+  }
+  .constrained {
+    max-width: 60px;
   }
 }
 
@@ -216,7 +213,7 @@ canvas {
     }
 
     canvas {
-      height: 270px;
+      height: 290px;
       @media @mobile {
         height: 150px;
       }
@@ -228,7 +225,7 @@ canvas {
     canvas {
       height: 100px;
     }
-    .x-axis:first-of-type {
+    .x-axis {
       padding-bottom: 20px;
     }
   }
