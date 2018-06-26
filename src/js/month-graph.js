@@ -25,9 +25,11 @@ module.exports = function monthGraph() {
       maxVal() {
         return Math.max(... this.monthly);
       },
+      xWidth() {
+        return this.canvasWidth / (this.monthly.length - 1);
+      },
       xs() {
-        return this.monthly.map((_, i) =>
-          this.canvasWidth * i / (this.monthly.length - 1));
+        return this.monthly.map((_, i) => i * this.xWidth);
       },
     },
     template: require('./_month-graph.html'),
@@ -47,13 +49,6 @@ module.exports = function monthGraph() {
           return (1 - scaled) * (baselineY) + scaled * padding.top;
         });
 
-        // Draw baseline
-        context.lineWidth = 1;
-        context.strokeStyle = palette.dfMiddleGray;
-        context.beginPath();
-        context.moveTo(0, baselineY);
-        context.lineTo(canvas.width, baselineY);
-        context.stroke();
 
         context.lineWidth = 2;
 
@@ -69,7 +64,6 @@ module.exports = function monthGraph() {
         // Draw line graph + ticks
         context.setLineDash([]);
         context.strokeStyle = 'black';
-        context.fillStyle = palette.dfMiddleGray;
         context.beginPath();
         var skipTo = true; // Use moveTo for first month, and whenever we skip
         ys.forEach((y, i) => {
@@ -85,9 +79,26 @@ module.exports = function monthGraph() {
             context.lineTo(x, y);
           }
 
+          // Stripe every other
+          if (i % 2 === 1) {
+            context.fillStyle = '#eee';
+            context.fillRect(x - this.xWidth / 2, 0, this.xWidth, baselineY)
+          }
+
           // Ticks for certain months
-          if (this.ticks[i]) context.fillRect(x - 1, baselineY - 4, 2, 8);
+          if (this.ticks[i]) {
+            context.fillStyle = palette.dfMiddleGray;
+            context.fillRect(x - 1, baselineY - 4, 2, 8);
+          }
         });
+        context.stroke();
+        
+        // Draw baseline
+        context.lineWidth = 1;
+        context.strokeStyle = palette.dfMiddleGray;
+        context.beginPath();
+        context.moveTo(0, baselineY);
+        context.lineTo(canvas.width, baselineY);
         context.stroke();
       },
       commafy,
