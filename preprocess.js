@@ -92,39 +92,19 @@ metadata.forEach((bc) => {
   result[bc.name].weekly = [0,1,2,3,4,5,6].map(day => bikesPerDayOfWeek(data, bc.dirs, day));
 });
 
-// to be used in the next step
-const overallDailyAverages = {};
-metadata.forEach((bc) => {
-  const data = filterDate(raws[bc.name], '2016-05-01', '2018-05-01');
-  const total = sumField(data, bc.dirs[0]) + sumField(data, bc.dirs[1]);
-  const dates = data.map(r => r.date.slice(0,10));
-  const uniqueDays = new Set(dates);
-  overallDailyAverages[bc.name] = total / (uniqueDays.size * 24);
-});
-console.log(overallDailyAverages);
-
 // Total bikes for each month from May 2016 - April 2018
 metadata.forEach((bc) => {
-  result[bc.name].monthlyUncorrected = [];
-
   const months = monthRange(2016, 5, 2018, 4);
   result[bc.name].monthly = months.map((monthStr, i) => {
-    const data = filterDate(raws[bc.name], monthStr, months[i + 1] || '2018-05-01'); // Filter to dates from the desired month
-      // .filter(r => r[bc.dirs[0]] + r[bc.dirs[1]] > overallDailyAverages[bc.name] / 10); // Remove hours with no counters
+    // Sad special case for erroneous 2nd-ave data
+    // Corrected numbers from https://www.seattle.gov/transportation/projects-and-programs/programs/bike-program/bike-counters/2nd-ave-bike-counter
+    if (bc.name === '2nd-ave' && monthStr === '2016-11-01') return (9529 + 6559) / 30;
+
+    const data = filterDate(raws[bc.name], monthStr, months[i + 1] || '2018-05-01') // Filter to dates from the desired month
+      .filter(r => Number(r[bc.dirs[0]]) > 0 || Number(r[bc.dirs[1]]) > 0; // Remove hours with no counters
     const dates = data.map(r => r.date.slice(0,10));
     const uniqueDays = new Set(dates);
-
-    const uncorrected = (sumField(data, bc.dirs[0]) + sumField(data, bc.dirs[1])) / uniqueDays.size;
-    result[bc.name].monthlyUncorrected.push(uncorrected);
-
-    const goodDays = new Set();
-    uniqueDays.forEach((date) => {
-      const dateData = data.filter(r => r.date.slice(0, 10) === date);
-      const dailyBikes = sumField(dateData, bc.dirs[0]) + sumField(dateData, bc.dirs[1]);
-      if (dailyBikes > overallDailyAverages[bc.name] / 10) goodDays.add(date);
-    });
-    const finalData = data.filter(r => goodDays.has(r.date.slice(0, 10)));
-    return (sumField(finalData, bc.dirs[0]) + sumField(finalData, bc.dirs[1])) / goodDays.size;
+    return (sumField(data, bc.dirs[0]) + sumField(data, bc.dirs[1])) / uniqueDays.size;
     // If we have an empty month, this returns (0 + 0) / 0 = NaN, which gets stringified to null, lol
   });
 });

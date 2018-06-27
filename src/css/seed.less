@@ -192,7 +192,7 @@ canvas {
   margin: -1px 10px 20px;
   height: 360px;
   overflow-y: hidden;
-  transition: height 0.5s ease;
+  transition: all 0.5s ease;
   .display-flex();
 
   @media @mobile {
@@ -238,6 +238,7 @@ canvas {
 }
 .slide-enter, .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
   height: 0;
+  margin-bottom: 0;
 }
 
 .color-legend {

@@ -20,7 +20,7 @@ module.exports = function monthGraph() {
         resizeListener: null,
       };
     },
-    props: ['monthly', 'slug', 'uncorrected'],
+    props: ['monthly', 'slug'],
     computed: {
       maxValIndex() {
         var result = 0;
@@ -48,11 +48,11 @@ module.exports = function monthGraph() {
         }
         return {
           startX: this.xs[this.maxValIndex] + 5,
-          startY: 5,
+          startY: 1,
           endX: this.xs[this.maxValIndex] + 40,
-          endY: 10,
+          endY: 1,
           textX: this.xs[this.maxValIndex] + 45,
-          textY: 10,
+          textY: 1,
         };
       }
     },
@@ -117,21 +117,6 @@ module.exports = function monthGraph() {
           }
         });
         context.stroke();
-
-        // Draw uncorrected
-        context.setLineDash([1,5]);
-        context.strokeStyle = 'black';
-        context.beginPath();
-        this.uncorrected.forEach((n, i) => {
-          var x = this.xs[i];
-          var scaled = n / maxVal;
-          var y = (1 - scaled) * baselineY + scaled * padding.top;
-          if (i === 0) context.moveTo(x, y);
-          else context.lineTo(x, y);
-        });
-        context.stroke();
-        context.setLineDash([]);
-
 
         // Draw baseline
         context.lineWidth = 1;

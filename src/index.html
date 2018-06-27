@@ -10,7 +10,7 @@
       <main>
         <section class="chatter">
           <h1>Bike counter data (hed TK)</h1>
-          <p>Click on the rows below to see detailed bike counter data. (chatter TK)</p>
+          <p>Due to gaps in the data from counter malfunctions, some numbers may underestimate actual bike traffic. For example, several months of data from 2016 are missing for the Mountain to Sound Trail counter. Days when no bikes were counted have been ignored for the calculation of the month-over-month daily averages.</p>
         </section>
         <div class="row header-row" v-cloak>
           <h2>Location</h2>
@@ -34,7 +34,7 @@
           </div>
           <transition name="slide">
             <div v-if="drilldown === counter" class="drilldown">
-              <month-graph v-bind:monthly="bikeCounts[counter].monthly" v-bind:slug="counter" v-bind:uncorrected="bikeCounts[counter].monthlyUncorrected"></month-graph>
+              <month-graph v-bind:monthly="bikeCounts[counter].monthly" v-bind:slug="counter"></month-graph>
               <day-graphs v-bind:weekday="bikeCounts[counter].weekday" v-bind:weekend="bikeCounts[counter].weekend"></day-graphs>
             </div>
           </transition>
