@@ -25,6 +25,8 @@ main {
 }
 
 .row.header-row {
+  border-bottom: 1px solid @df-light-gray;
+
   @media @mobile {
     display: none;
   }
@@ -47,8 +49,23 @@ main {
 }
 
 .row {
-  border-bottom: 1px solid @df-light-gray;
   .display-flex();
+  
+  @media @mobile {
+    display: block;
+  }
+  
+  & > * {
+    .flex(1 1 25%);
+    padding: 20px 10px 3px;
+  }
+  & > :nth-child(2) {
+    .flex(2 2 50%);
+  }
+}
+
+.row-wrapper {
+  border-bottom: 1px solid @df-light-gray;
 
   &:not(.header-row) {
     &:hover, &:focus {
@@ -56,21 +73,67 @@ main {
       cursor: pointer;
     }
   }
-
+  
   @media @mobile {
-    display: block;
     margin: 20px 10px 0;
     box-shadow: 0 8px 16px 0 fade(black, 10%);
     border: 1px solid @df-light-gray;
     border-radius: 3px;
   }
+}
 
-  & > * {
-    .flex(1 1 25%);
-    padding: 20px;
+.see-more {
+  padding-bottom: 5px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1;
+  color: @df-middle-gray;
+  text-shadow: 1px 1px 1px @df-light-gray;
+
+  // Desktop, no hover/focus
+  opacity: 0;
+  visibility: hidden; // Hide from screen readers (but use with opacity for transition)
+  transition: opacity 0.2s linear,
+    visibility 0s 0.2s;
+  
+  // Tablet + mobile (regardless of hover/focus)
+  @media @tablet {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.2s linear;
   }
-  & > :nth-child(2) {
-    .flex(2 2 50%);
+  
+  // Desktop, hover/focus
+  :hover > &, :focus > & {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.2s linear;
+
+    // All, drilldown open
+    &.hide {
+      opacity: 0;
+      visibility: hidden; 
+      transition: opacity 0.2s linear,
+        visibility 0s 0.2s;
+    }
+  }
+}
+
+.see-less {
+  margin: 0;
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  line-height: 1;
+  text-align: center;
+  color: @df-middle-gray;
+  text-shadow: 1px 1px 1px @df-light-gray;
+
+  display: none;
+  @media @mobile {
+    display: block;
   }
 }
 
@@ -199,7 +262,7 @@ canvas {
     display: block;
     margin: 0 20px 20px;
     border-top: none;
-    height: 750px;
+    height: 660px;
   }
 
   & > div {
@@ -213,7 +276,7 @@ canvas {
     }
 
     canvas {
-      height: 220px;
+      height: 270px;
       @media @mobile {
         height: 150px;
       }

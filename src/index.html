@@ -27,15 +27,19 @@
         </div>
         <transition-group name="reorder-list" tag="div">
         <div v-for="counter in counterNames" v-bind:key="counter" v-cloak>
-          <div class="row" tabindex="0" v-on:click="toggleDrilldown(counter)" v-on:keyup.enter="toggleDrilldown(counter)">
-            <locator v-bind:counter="counter" v-bind:coords="bikeCounts[counter].coords"></locator>
-            <count-grid v-bind:totals="bikeCounts[counter].totals"></count-grid>
-            <spark-line v-bind:weekly="bikeCounts[counter].weekly"></spark-line>
+          <div class="row-wrapper" tabindex="0" v-on:click="toggleDrilldown(counter)" v-on:keyup.enter="toggleDrilldown(counter)"   >
+            <div class="row">
+              <locator v-bind:counter="counter" v-bind:coords="bikeCounts[counter].coords"></locator>
+              <count-grid v-bind:totals="bikeCounts[counter].totals"></count-grid>
+              <spark-line v-bind:weekly="bikeCounts[counter].weekly"></spark-line>
+            </div>
+            <div class="see-more" v-bind:class="{ hide: drilldown === counter }">Tap for more</div>
           </div>
           <transition name="slide">
             <div v-if="drilldown === counter" class="drilldown">
               <month-graph v-bind:monthly="bikeCounts[counter].monthly" v-bind:slug="counter"></month-graph>
               <day-graphs v-bind:weekday="bikeCounts[counter].weekday" v-bind:weekend="bikeCounts[counter].weekend" v-bind:slug="counter"></day-graphs>
+              <button class="see-less" v-on:click="toggleDrilldown(counter)">Tap to hide</button>
             </div>
           </transition>
         </div>
