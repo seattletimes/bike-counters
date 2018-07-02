@@ -101,7 +101,7 @@ metadata.forEach((bc) => {
     if (bc.name === '2nd-ave' && monthStr === '2016-11-01') return (9529 + 6559) / 30;
 
     const data = filterDate(raws[bc.name], monthStr, months[i + 1] || '2018-05-01') // Filter to dates from the desired month
-      .filter(r => Number(r[bc.dirs[0]]) > 0 || Number(r[bc.dirs[1]]) > 0; // Remove hours with no counters
+      .filter(r => Number(r[bc.dirs[0]]) > 0 || Number(r[bc.dirs[1]]) > 0); // Remove hours with no counters
     const dates = data.map(r => r.date.slice(0,10));
     const uniqueDays = new Set(dates);
     return (sumField(data, bc.dirs[0]) + sumField(data, bc.dirs[1])) / uniqueDays.size;
