@@ -6,16 +6,16 @@ const fs = require('fs');
 
 // Names of our bike counters and their two bike direction fields
 const metadata = [
-  { name: '2nd-ave', dirs: ['nb', 'sb'], coords: [180, 300] },
-  { name: '26th-ave', dirs: ['north', 'south'] , coords: [120, 400] },
-  { name: '39th-ave', dirs: ['north', 'south'] , coords: [240, 160] },
-  { name: '58th-st', dirs: ['east', 'west'] , coords: [120, 170] },
-  { name: 'broadway', dirs: ['nb', 'sb'] , coords: [210, 280] },
-  { name: 'burke-gilman', dirs: ['bike_north', 'bike_south'] , coords: [260, 150] },
-  { name: 'elliott-bay', dirs: ['bike_north', 'bike_south'] , coords: [160, 280] },
-  { name: 'fremont-bridge', dirs: ['fremont_bridge_nb', 'fremont_bridge_sb'] , coords: [140, 210] },
-  { name: 'mts', dirs: ['bike_north', 'bike_south'] , coords: [240, 350] },
-  { name: 'spokane-st', dirs: ['east', 'west'] , coords: [140, 380] },
+  { name: '2nd-ave', dirs: ['nb', 'sb'], coords: [179, 318] },
+  { name: '26th-ave', dirs: ['north', 'south'] , coords: [135, 410] },
+  { name: '39th-ave', dirs: ['north', 'south'] , coords: [255, 160] },
+  { name: '58th-st', dirs: ['east', 'west'] , coords: [110, 170] },
+  { name: 'broadway', dirs: ['nb', 'sb'] , coords: [205, 292] },
+  { name: 'burke-gilman', dirs: ['bike_north', 'bike_south'] , coords: [285, 153] },
+  { name: 'elliott-bay', dirs: ['bike_north', 'bike_south'] , coords: [145, 285] },
+  { name: 'fremont-bridge', dirs: ['fremont_bridge_nb', 'fremont_bridge_sb'] , coords: [160, 222] },
+  { name: 'mts', dirs: ['bike_north', 'bike_south'] , coords: [256, 350] },
+  { name: 'spokane-st', dirs: ['east', 'west'] , coords: [160, 390] },
 ];
 
 // Load in all the raw data into the `raws` object

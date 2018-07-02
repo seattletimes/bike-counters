@@ -75,7 +75,7 @@ module.exports = function dayGraphs() {
         resizeListener: null
       };
     },
-    props: ['weekday', 'weekend'],
+    props: ['weekday', 'weekend', 'slug'],
     computed: {
       maxValsAndIndexes() {
         var result = {};
@@ -118,6 +118,13 @@ module.exports = function dayGraphs() {
         drawDay.call(this, 'weekend');
       },
       commafy,
+      betterDecipher(shorthand) { // mts labels are wrong
+        if (this.slug === 'mts' ) {
+          if (shorthand === 'bike_north') return 'eastbound';
+          if (shorthand === 'bike_south') return 'westbound';
+        }
+        return this.decipher[shorthand];
+      },
     },
     mounted: canvasDraw,
     destroyed() {

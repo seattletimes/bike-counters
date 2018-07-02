@@ -25,9 +25,9 @@ module.exports = {
     '58th-st': 'W 58th St Greenway at 22nd Ave NW',
     broadway: 'Broadway between Pike and Union',
     'burke-gilman': 'Burke Gilman Trail north of NE 70th St',
-    'elliott-bay': 'Elliott Bay Trail (Myrtle Edwards Park)',
+    'elliott-bay': 'Elliott Bay Trail in Myrtle Edwards Park',
     'fremont-bridge': 'Fremont Bridge',
-    mts: 'Mountain to Sound Trail at Lakeside Ave S',
+    mts: 'Mountain to Sound Trail west of I-90 Bridge',
     'spokane-st': 'S Spokane St Bridge',
   },
   canvasSetup(canvas) {
