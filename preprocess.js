@@ -80,6 +80,7 @@ const monthRange  = function monthRange(startYear, startMonth, endYear, endMonth
 // Calculate total bikes in each direction for May 2016-April 2017 and May 2017-April 2018
 metadata.forEach((bc) => {
   const timePeriods = [
+    filterDate(raws[bc.name], '2015-05-01', '2016-05-01'),
     filterDate(raws[bc.name], '2016-05-01', '2017-05-01'),
     filterDate(raws[bc.name], '2017-05-01', '2018-05-01'),
   ];

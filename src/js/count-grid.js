@@ -8,6 +8,14 @@ module.exports = function countGrid() {
       };
     },
     props: ['totals'],
+    computed: {
+      deltas() {
+        return this.totals.map((tot, i) => {
+          if (i === 0) return null;
+          return (tot - this.totals[i - 1]) / this.totals[i - 1];
+        });
+      },
+    },
     methods: {
       commafy,
       percentify,

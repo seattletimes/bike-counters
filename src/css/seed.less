@@ -50,6 +50,7 @@ main {
 
 .row {
   .display-flex();
+  .align-items(center);
   
   @media @mobile {
     display: block;
@@ -184,7 +185,7 @@ h4 {
   padding: 0;
   .display-flex();
   .justify-content(space-around);
-  .align-items(center);
+  .align-items(flex-end);
 
   @media @mobile {
     display: block;
@@ -207,15 +208,28 @@ h4 {
         float: left;
       }
       &:nth-child(1)::before {
-        content: "May 2016 - Apr. 2017: ";
+        content: "May 2015 - Apr. 2016: ";
       }
       &:nth-child(2)::before {
-        content: "May 2017 - Apr. 2018: ";
+        content: "May 2016 - Apr. 2017: ";
       }
       &:nth-child(3)::before {
-        content: "Change:";
+        content: "May 2017 - Apr. 2018: ";
       }
     }
+  }
+}
+
+.delta {
+  display: block;
+  font-size: 14px;
+  color: @st-dark-red;
+  &.up {
+    color: @st-dark-green;
+  }
+
+  @media @mobile {
+    display: none;
   }
 }
 
