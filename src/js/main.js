@@ -22,7 +22,7 @@ var app = new Vue({
     sortOrder: null, // -1 for descending, 1 for ascending
     bikeCounts: window.bikeCounts,
     drilldown: null,
-    sortHeaders: ['May 2015 - Apr. 2016', 'May 2016 - Apr. 2017', 'May 2017 - Apr. 2018'],
+    sortHeaders: ['May 2015 - April 2016', 'May 2016 - April 2017', 'May 2017 - April 2018'],
   },
   methods: {
     toggleDrilldown(counter) {
