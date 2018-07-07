@@ -125,14 +125,14 @@ module.exports = function monthGraph() {
         context.moveTo(0, baselineY);
         context.lineTo(canvas.width, baselineY);
         context.stroke();
-
-        // Draw annotation line
-        context.beginPath();
-        context.moveTo(this.annotation.startX, this.annotation.startY);
-        context.lineTo(this.annotation.endX, this.annotation.endY);
-        context.stroke();
       },
       commafy,
+      indexToMonthStr(i) {
+        var months = ['Jan.', 'Feb.', 'March', 'April', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'];
+        var years = [2016, 2017, 2018];
+        var adjustedIndex = i + 4; // Since we start in May
+        return `${months[adjustedIndex % 12]} ${years[Math.floor(adjustedIndex / 12)]}`;
+      },
     },
     mounted: canvasDraw,
     destroyed() {

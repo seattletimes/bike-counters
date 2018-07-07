@@ -28,12 +28,6 @@ var drawDay = function drawDay(dayType) {
   context.lineTo(canvas.width, baselineY);
   context.stroke();
 
-  // Draw annotation line
-  context.beginPath();
-  context.moveTo(this.annotations[dayType].startX, this.annotations[dayType].startY);
-  context.lineTo(this.annotations[dayType].endX, this.annotations[dayType].endY);
-  context.stroke();
-
   // max of both directions
   var maxVal = this.maxValsAndIndexes[dayType][0];
 
@@ -125,6 +119,9 @@ module.exports = function dayGraphs() {
         }
         return this.decipher[shorthand];
       },
+      indexToHourStr(i) {
+        return `${(i % 12 === 0)  ? 12 : i % 12} ${i <= 11 ? 'a.m.' : 'p.m.'}`;
+      }
     },
     mounted: canvasDraw,
     destroyed() {

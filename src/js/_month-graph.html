@@ -1,12 +1,9 @@
 <div class="month-graph">
   <h3>Average bike traffic, May 2016 - April 2018</h3>
-  <div class="annotation">
-    <span class="count" v-bind:style="{ left: annotation.textX.toString() + 'px', top: annotation.textY.toString() + 'px' }"
-      v-bind:class="{constrained: slug === 'broadway' || slug === '39th-ave'}">{{ commafy(monthly[maxValIndex])}} <span class="unit">bikes per day</span></span>
-  </div>
+  <h4>(Peak of {{ commafy(monthly[maxValIndex]) }} bikes per day in {{ indexToMonthStr(maxValIndex) }})</h4>
   <canvas></canvas>
   <div class="x-axis">
-    <span v-for="(label, i) in ticks" v-bind:style="{ left: xs[i].toString() + 'px'} ">{{ label }}</span>
+    <span v-for="(label, i) in ticks" v-bind:style="{ left: xs[i].toString() + 'px' } ">{{ label }}</span>
   </div>
   <p>The red line marks the introduction of dockless bikeshare to Seattle.</p>
 </div>

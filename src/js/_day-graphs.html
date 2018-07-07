@@ -4,18 +4,12 @@
     <li><span class="dir-0"></span>{{ betterDecipher(weekday[0].dir) }}</li>
     <li><span class="dir-1"></span>{{ betterDecipher(weekday[1].dir) }}</li>
   </ul>
-  <h4>Weekdays</h4>
-  <div class="annotation">
-    <span class="count constrained" v-bind:style="{ left: annotations.weekday.textX.toString() + 'px', top: annotations.weekday.textY.toString() + 'px' }">{{ commafy(maxValsAndIndexes.weekday[0])}} <span class="unit">bikes per hour</span></span>
-  </div>
+  <h4>Weekdays (Peak of {{ commafy(maxValsAndIndexes.weekday[0]) }} bikes per hour during the {{ indexToHourStr(maxValsAndIndexes.weekday[1]) }} hour)</h4>
   <canvas class="weekday"></canvas>
   <div class="x-axis">
     <span v-for="(label, i) in ticks" v-bind:style="{ left: xs[i].toString() + 'px'}">{{ label }}</span>
   </div>
-  <h4>Weekend</h4>
-  <div class="annotation">
-    <span class="count constrained" v-bind:style="{ left: annotations.weekend.textX.toString() + 'px', top: annotations.weekend.textY.toString() + 'px' }">{{ commafy(maxValsAndIndexes.weekend[0])}} <span class="unit">bikes per hour</span></span>
-  </div>
+  <h4>Weekend (Peak of {{ commafy(maxValsAndIndexes.weekend[0]) }} bikes per hour during the {{ indexToHourStr(maxValsAndIndexes.weekend[1])}} hour)</h4>
   <canvas class="weekend"></canvas>
   <div class="x-axis">
     <span v-for="(label, i) in ticks" v-bind:style="{ left: xs[i].toString() + 'px'}">{{ label }}</span>
