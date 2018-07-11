@@ -13,7 +13,7 @@ const metadata = [
   { name: 'broadway', dirs: ['nb', 'sb'] , coords: [205, 292] },
   { name: 'burke-gilman', dirs: ['bike_north', 'bike_south'] , coords: [285, 153] },
   { name: 'elliott-bay', dirs: ['bike_north', 'bike_south'] , coords: [145, 285] },
-  { name: 'fremont-bridge', dirs: ['fremont_bridge_nb', 'fremont_bridge_sb'] , coords: [160, 222] },
+  { name: 'fremont-bridge', dirs: ['fremont_bridge_sb', 'fremont_bridge_nb'] , coords: [160, 222] },
   { name: 'mts', dirs: ['bike_north', 'bike_south'] , coords: [256, 350] },
   { name: 'spokane-st', dirs: ['east', 'west'] , coords: [160, 390] },
 ];
