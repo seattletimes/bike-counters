@@ -43,6 +43,8 @@ https://www.seattle.gov/transportation/projects-and-programs/programs/bike-progr
   https://data.seattle.gov/Transportation/26th-Ave-SW-Greenway-at-SW-Oregon-St/mefu-7eau
   https://data.seattle.gov/resource/ibyv-67da.json?$limit=999999999&$order=date
   2014-01-01 through 2018-05-01
+  check east: http://www.eco-public.com/api/cw6Xk4jW4X4R/data/periode/102008768/?begin=20150501&end=20180430&step=3
+  check west: http://www.eco-public.com/api/cw6Xk4jW4X4R/data/periode/101008768/?begin=20150501&end=20180430&step=3
 
 * spokane-st
   https://data.seattle.gov/Transportation/Spokane-St-Bridge-Counter/upms-nr8w
@@ -53,11 +55,15 @@ https://www.seattle.gov/transportation/projects-and-programs/programs/bike-progr
   https://data.seattle.gov/Transportation/2nd-Ave-Cycle-Track-North-of-Marion-St/avwm-i8ym
   https://data.seattle.gov/resource/aq6e-mcz8.json?$limit=999999999&$order=date
   2015-01-01 through 2018-05-31
+  check nb: http://www.eco-public.com/api/cw6Xk4jW4X4R/data/periode/101030820/?begin=20160501&end=20180430&step=3
+  check sb: http://www.eco-public.com/api/cw6Xk4jW4X4R/data/periode/102030820/?begin=20160501&end=20180430&step=3
 
 * fremont-bridge
   https://data.seattle.gov/Transportation/Fremont-Bridge-Hourly-Bicycle-Counts-by-Month-Octo/65db-xm6k
   https://data.seattle.gov/resource/4xy5-26gy.json?$limit=999999999&$order=date
   2012-10-03 through 2018-05-31
+  check "nb" (not actually northbound): http://www.eco-public.com/api/cw6Xk4jW4X4R/data/periode/101020981/?begin=20150501&end=20180430&step=3
+  check "sb" (not actually southbound): http://www.eco-public.com/api/cw6Xk4jW4X4R/data/periode/102020981/?begin=20150501&end=20180430&step=3
 
 * linden-ave
   ??? Can't find dataset, even though it's on the city's map of bike counters
