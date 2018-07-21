@@ -1,6 +1,6 @@
-var data = require('./raw/spokane-st.json');
+var data = require('./raw/fremont-bridge.json');
 
-var check = require('./check/spokane-east-check.json');
+var check = require('./check/fremont-sb-not-sb-check.json');
 
 const dataDict = {};
 data.forEach((r) => {
@@ -21,7 +21,7 @@ check.forEach((row) => {
   }
   if (row.comptage === null) row.comptage = 0;
 
-  if (datum.east !== row.comptage.toString()) {
+  if (datum.fremont_bridge_sb !== row.comptage.toString()) {
     console.log(row);
     count += 1;
     days.add(row.date.slice(0,10));

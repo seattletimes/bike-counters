@@ -97,9 +97,16 @@ metadata.forEach((bc) => {
 metadata.forEach((bc) => {
   const months = monthRange(2015, 5, 2018, 4);
   result[bc.name].monthly = months.map((monthStr, i) => {
+
+    // UPDATE 2018-07-20: I'm no longer going to do this manual correction (directly below), because Rafael Zuniga from SDOT
+    // said we should trust the data.seattle.gov data over the ecocounter data.
+    // To be clear, *I still suspect that the data is wrong for this month* (as well as several others that I've emailed them about)
+    // But not correcting it is probably the clearest way to have a consistent methodology
+    // :(
+
     // Sad special case for erroneous 2nd-ave data
     // Corrected numbers from https://www.seattle.gov/transportation/projects-and-programs/programs/bike-program/bike-counters/2nd-ave-bike-counter
-    if (bc.name === '2nd-ave' && monthStr === '2016-11-01') return (9529 + 6559) / 30;
+    // if (bc.name === '2nd-ave' && monthStr === '2016-11-01') return (9529 + 6559) / 30;
 
     const data = filterDate(raws[bc.name], monthStr, months[i + 1] || '2018-05-01') // Filter to dates from the desired month
       .filter(r => Number(r[bc.dirs[0]]) > 0 || Number(r[bc.dirs[1]]) > 0); // Remove hours with no counters
