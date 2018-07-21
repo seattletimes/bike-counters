@@ -367,3 +367,16 @@ canvas {
 .asc::after {
   content: "▴";
 }
+
+.throwaway {
+  display: block;
+  padding-top: 5px;
+  font-size: 10px;
+
+  height: 20px;
+  visibility: hidden; // hack to take up same amount of space even when not there, for alignment :P
+
+  &.show {
+    visibility: visible;
+  }
+}

@@ -53,6 +53,29 @@ const dayOfWeek = function dayOfWeek(row) {
   return (new Date(row.date)).getDay();
 };
 
+const daysInMonth = function daysInMonth(monthStr) {
+  var year = Number(monthStr.slice(0,4))
+  var monthNum = Number(monthStr.slice(5,7));
+  if (monthNum === 2) {
+    if (year === 2016) return 29;
+    return 28;
+  }
+  var dict = {
+    1: 31,
+    3: 31,
+    4:30,
+    5:31,
+    6:30,
+    7:31,
+    8:31,
+    9:30,
+    10:31,
+    11:30,
+    12:31,
+  };
+  return dict[monthNum];
+}
+
 const bikesPerDayOfWeek = function bikesPerDayOfWeek(data, fields, day) {
   const filteredData = data.filter(r => dayOfWeek(r) === day);
   const dates = filteredData.map(r => r.date.slice(0,10));
@@ -96,6 +119,7 @@ metadata.forEach((bc) => {
 // Total bikes for each month from May 2016 - April 2018
 metadata.forEach((bc) => {
   const months = monthRange(2015, 5, 2018, 4);
+  result[bc.name].numDaysThrownAwayPerMonth = [];
   result[bc.name].monthly = months.map((monthStr, i) => {
 
     // UPDATE 2018-07-20: I'm no longer going to do this manual correction (directly below), because Rafael Zuniga from SDOT
@@ -112,9 +136,19 @@ metadata.forEach((bc) => {
       .filter(r => Number(r[bc.dirs[0]]) > 0 || Number(r[bc.dirs[1]]) > 0); // Remove hours with no counters
     const dates = data.map(r => r.date.slice(0,10));
     const uniqueDays = new Set(dates);
+    result[bc.name].numDaysThrownAwayPerMonth.push(daysInMonth(monthStr) - uniqueDays.size);
     return (sumField(data, bc.dirs[0]) + sumField(data, bc.dirs[1])) / uniqueDays.size;
     // If we have an empty month, this returns (0 + 0) / 0 = NaN, which gets stringified to null, lol
   });
+});
+
+// Above, we calculated the days "thrown out" (counted 0 bikes on those days) per each month.
+// We'll gather those into years
+metadata.forEach((bc) => {
+  result[bc.name].numDaysThrownAwayPerYear = [0, 12, 24].map((i) => {
+    return result[bc.name].numDaysThrownAwayPerMonth.slice(i, i + 12) // get month 0-11, then 12-23, then 24-35
+      .reduce((sum, curr) => sum + curr); // add them all up to get the total for that yr (2015-2016, 2016-2017, and 2017-2018)
+  }); // and return an array of the 3 nums
 });
 
 // Average bikes per hr for May 2017-April 2018 - separated by weekend/weekday and direction

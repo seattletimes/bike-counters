@@ -7,7 +7,7 @@ module.exports = function countGrid() {
         decipher,
       };
     },
-    props: ['totals'],
+    props: ['totals', 'throwaways'],
     computed: {
       deltas() {
         return this.totals.map((tot, i) => {

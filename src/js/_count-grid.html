@@ -1,6 +1,7 @@
 <div class="pair">
   <div v-for="(val, i) in totals">
     <span v-if="i > 0" class="delta" v-bind:class="{ up: deltas[i] > 0 }">{{ percentify(deltas[i]) }}</span>
-    {{ commafy(val) }}
+    {{ commafy(val) }}<span v-if="throwaways[i] > 0">*</span>
+    <span class="throwaway" v-bind:class="{show: throwaways[i] > 0}">* {{throwaways[i]}} day{{throwaways[i] > 1 ? 's' : ''}} with no bikes.</span>
   </div>
 </div>

@@ -30,7 +30,7 @@
           <div class="row-wrapper" tabindex="0" v-on:click="toggleDrilldown(counter)" v-on:keyup.enter="toggleDrilldown(counter)"   >
             <div class="row">
               <locator v-bind:counter="counter" v-bind:coords="bikeCounts[counter].coords"></locator>
-              <count-grid v-bind:totals="bikeCounts[counter].totals"></count-grid>
+              <count-grid v-bind:totals="bikeCounts[counter].totals" v-bind:throwaways="bikeCounts[counter].numDaysThrownAwayPerYear"></count-grid>
               <spark-line v-bind:weekly="bikeCounts[counter].weekly"></spark-line>
             </div>
             <div class="see-more" v-bind:class="{ hide: drilldown === counter }">Tap for more</div>
