@@ -95,7 +95,7 @@ metadata.forEach((bc) => {
 
 // Total bikes for each month from May 2016 - April 2018
 metadata.forEach((bc) => {
-  const months = monthRange(2016, 5, 2018, 4);
+  const months = monthRange(2015, 5, 2018, 4);
   result[bc.name].monthly = months.map((monthStr, i) => {
     // Sad special case for erroneous 2nd-ave data
     // Corrected numbers from https://www.seattle.gov/transportation/projects-and-programs/programs/bike-program/bike-counters/2nd-ave-bike-counter

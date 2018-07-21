@@ -11,10 +11,12 @@ module.exports = function monthGraph() {
     data() {
       return {
         ticks: {
-          2: 'July 2016',
-          8: 'Jan. 2017',
-          14: 'July 2017',
-          20: 'Jan. 2018',
+          2: 'July 2015',
+          8: 'Jan. 2016',
+          14: 'July 2016',
+          20: 'Jan. 2017',
+          26: 'July 2017',
+          32: 'Jan 2018',
         },
         canvasWidth: 0,
         resizeListener: null,
@@ -58,6 +60,9 @@ module.exports = function monthGraph() {
     },
     template: require('./_month-graph.html'),
     methods: {
+      allowTick(i) {
+        return i % 4 === 2 || !window.matchMedia("(max-width: 768px)").matches;
+      },
       draw() {
         var canvas = this.$el.querySelector('canvas');
         var context = canvasSetup(canvas);
@@ -81,7 +86,7 @@ module.exports = function monthGraph() {
         context.setLineDash([5,5]);
         context.strokeStyle = palette.stLightRed;
         context.beginPath();
-        var x = this.xs[14];
+        var x = this.xs[26]; // July 2017
         context.moveTo(x, padding.top);
         context.lineTo(x, baselineY);
         context.stroke();
@@ -111,7 +116,9 @@ module.exports = function monthGraph() {
           }
 
           // Ticks for certain months
-          if (this.ticks[i]) {
+          // Additional condition: Either screen is bigger than tablet, or it's a "July" month
+          // i.e. when screen is small, only print Julys, not Januarys
+          if (this.ticks[i] && this.allowTick(i)) {
             context.fillStyle = palette.dfMiddleGray;
             context.fillRect(x - 1, baselineY - 4, 2, 8);
           }
@@ -129,7 +136,7 @@ module.exports = function monthGraph() {
       commafy,
       indexToMonthStr(i) {
         var months = ['Jan.', 'Feb.', 'March', 'April', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'];
-        var years = [2016, 2017, 2018];
+        var years = [2015, 2016, 2017, 2018];
         var adjustedIndex = i + 4; // Since we start in May
         return `${months[adjustedIndex % 12]} ${years[Math.floor(adjustedIndex / 12)]}`;
       },

@@ -28,7 +28,7 @@ module.exports = {
     'elliott-bay': 'Elliott Bay Trail in Myrtle Edwards Park',
     'fremont-bridge': 'Fremont Bridge',
     mts: 'Mountain to Sound Trail west of I-90 Bridge',
-    'spokane-st': 'S Spokane St Bridge',
+    'spokane-st': 'S Spokane St. Bridge',
   },
   canvasSetup(canvas) {
     // Fixed some resizing issues
