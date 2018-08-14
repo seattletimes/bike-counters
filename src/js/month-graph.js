@@ -16,7 +16,7 @@ module.exports = function monthGraph() {
           14: 'July 2016',
           20: 'Jan. 2017',
           26: 'July 2017',
-          32: 'Jan 2018',
+          32: 'Jan. 2018',
         },
         canvasWidth: 0,
         resizeListener: null,
